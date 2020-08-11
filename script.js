@@ -18,10 +18,10 @@ let dragging = false;
 let currentColumn;
 
 const getSavedColumnsFromLocalStorageOrSetDefault = () => {
-  if (localStorage.getItem('backlogItems')) {
+  if (localStorage.getItem('onHoldItems')) {
     onHoldListArray = JSON.parse(localStorage.onHoldItems);
   } else {
-    onHoldListArray = ['Dinner Plans'];
+    onHoldListArray = ['Josh'];
   }
 };
 
@@ -50,9 +50,10 @@ const createItemElements = (columnElement, column, item, index) => {
 const updateDOM = () => {
   if (!updatedOnLoad) getSavedColumnsFromLocalStorageOrSetDefault();
   onHoldListElement.textContent = '';
-  onHoldListArray.forEach((onHoldItem, index) => createItemElements(onHoldListElement, 3, onHoldItem, index));
+  onHoldListArray.forEach((onHoldItem, index) => createItemElements(onHoldListElement, 0, onHoldItem, index));
   onHoldListArray = removeEmptyValues(onHoldListArray);
   updatedOnLoad = true;
+  console.log('here');
   updateSavedColumnsInLocalStorage();
 };
 
@@ -89,19 +90,6 @@ const hideInputBox = (column) => {
 updateDOM();
 const toggleSwitch = document.querySelector('input[type="checkbox"]');
 const toggleIcon = document.getElementById('toggle-icon');
-
-// Event Listener
-
-// Check Local Storage For Theme
-const currentTheme = localStorage.getItem('theme');
-if (currentTheme) {
-  document.documentElement.setAttribute('data-theme', currentTheme);
-
-  if (currentTheme === 'dark') {
-    toggleSwitch.checked = true;
-    darkMode();
-  }
-}
 
 const menuBars = document.getElementById('menu-bars');
 const overlay = document.getElementById('overlay');

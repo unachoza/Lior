@@ -9,9 +9,6 @@ html {
   --navColor3: #f07393;
   --navColor4: #7ba84d;
   --navColor5: #ed982a;
-}
-
-:root {
   --column-1: #7b4893;
   --column-2: #0057ba;
   --column-3: #1a5a00;
@@ -132,7 +129,7 @@ ul {
   display: flex;
   justify-content: center;
   border-radius: var(--border-radius);
-  margin: 10px;
+  margin: 10px 5px;
 }
 
 .header h1 {
@@ -231,11 +228,7 @@ ul {
 }
 
 /* Media Query: Laptop */
-@media screen and (max-width: 1800px) {
-  .main-title {
-    font-size: 2rem;
-  }
-}
+
 @media screen and (max-width: 1050px) {
   h1 {
     letter-spacing: 0;
@@ -277,17 +270,16 @@ ul {
     display: block;
   }
   .drag-column {
-    margin: 10px;
   }
   h1 {
     letter-spacing: 1px;
     font-size: 1rem;
   }
   .header h1 {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
   li {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -542,14 +534,14 @@ section#contact {
 }
 
 /* Media Query: Large Smartphone (Vertical) */
-/* @media (max-width: 600px) {
+@media (max-width: 600px) {
   section#home a {
     top: 1rem;
     left: 1rem;
   }
 
   .menu-bars {
-    top: 0.5rem;
-    right: 1rem;
+    top: 1.2rem;
+    right: 1.5rem;
   }
-} */
+}
