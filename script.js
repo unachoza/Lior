@@ -40,9 +40,6 @@ const createItemElements = (columnElement, column, item, index) => {
   listElement.textContent = item;
   listElement.id = index;
   listElement.classList.add('drag-item');
-  listElement.draggable = true;
-  listElement.setAttribute('onfocusout', `updateItem(${index}, ${column})`);
-  listElement.setAttribute('ondragstart', 'drag(event)');
   listElement.contentEditable = true;
   columnElement.appendChild(listElement);
 };
@@ -53,17 +50,7 @@ const updateDOM = () => {
   onHoldListArray.forEach((onHoldItem, index) => createItemElements(onHoldListElement, 0, onHoldItem, index));
   onHoldListArray = removeEmptyValues(onHoldListArray);
   updatedOnLoad = true;
-  console.log('here');
   updateSavedColumnsInLocalStorage();
-};
-
-const updateItem = (id, column) => {
-  const selectedArray = listArrays[column];
-  const selectedColumn = listColumns[column].children;
-  if (!dragging) {
-    !selectedColumn[id].textContent ? delete selectedArray[id] : (selectedArray[id] = selectedColumn[id].textContent);
-    updateDOM();
-  }
 };
 
 const addToColumn = (column) => {
@@ -90,7 +77,6 @@ const hideInputBox = (column) => {
 updateDOM();
 const toggleSwitch = document.querySelector('input[type="checkbox"]');
 const toggleIcon = document.getElementById('toggle-icon');
-
 const menuBars = document.getElementById('menu-bars');
 const overlay = document.getElementById('overlay');
 const nav1 = document.getElementById('nav-1');
@@ -108,19 +94,13 @@ function navAnimation(direction1, direction2) {
 }
 
 function toggleNav() {
-  // Toggle: Menu Bars Open/Closed
   menuBars.classList.toggle('change');
-  // Toggle: Menu Active
   overlay.classList.toggle('overlay-active');
   if (overlay.classList.contains('overlay-active')) {
-    // Animate In - Overlay
     overlay.classList.replace('overlay-slide-left', 'overlay-slide-right');
-    // Animate In - Nav Items
     navAnimation('out', 'in');
   } else {
-    // Animate Out - Overlay
     overlay.classList.replace('overlay-slide-right', 'overlay-slide-left');
-    // Animate Out - Nav Items
     navAnimation('in', 'out');
   }
 }
