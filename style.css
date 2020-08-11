@@ -99,7 +99,7 @@ ul {
 .on-hold-column .solid,
 .on-hold-column .solid:hover,
 .on-hold-column .over {
-  background-color: var(--column-4);
+  background-color: rgba(0, 0, 0);
 }
 
 /* Custom Scrollbar */
@@ -130,6 +130,8 @@ ul {
   justify-content: center;
   border-radius: var(--border-radius);
   margin: 10px 5px;
+  background-color: rgba(0, 0, 0);
+  border-radius: 5px;
 }
 
 .header h1 {
