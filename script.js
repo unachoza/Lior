@@ -73,6 +73,7 @@ const hideInputBox = (column) => {
   addItemContainers[column].style.display = 'none';
   addToColumn(column);
 };
+const showClientList = () => {};
 
 updateDOM();
 const toggleSwitch = document.querySelector('input[type="checkbox"]');
@@ -110,3 +111,16 @@ menuBars.addEventListener('click', toggleNav);
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
+
+const modal = document.getElementById('modal');
+const modalShow = document.getElementById('show-modal');
+const modalClose = document.getElementById('close-modal');
+// Show Modal, Focus on Input
+function showModal() {
+  modal.classList.add('show-modal');
+}
+
+// Modal Event Listeners
+modalShow.addEventListener('click', showModal);
+modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
+window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));

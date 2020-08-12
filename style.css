@@ -551,3 +551,80 @@ section#contact {
     right: 1.5rem;
   }
 }
+/* Modal */
+.modal-container {
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.show-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  max-width: 95%;
+  width: 500px;
+  animation: modalopen 1s;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.close-icon {
+  float: right;
+  color: white;
+  font-size: 24px;
+  position: relative;
+  top: 13px;
+  right: 13px;
+  cursor: pointer;
+}
+
+.modal-header {
+  font-family: Nunito, sans-serif;
+  background-color: rgb(224 13 149);
+  color: white;
+  padding: 5px;
+}
+
+h3 {
+  margin: 5px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.modal-content {
+  padding: 20px;
+  background: whitesmoke;
+}
+.suggested-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+}
+.suggested-list-li {
+  font-size: 20px;
+  color: black;
+}
+.suggested-list-li:hover {
+  color: blue;
+  cursor: pointer;
+}

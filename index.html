@@ -35,10 +35,10 @@
             <h1>Clients</h1>
           </span>
           <!-- On Hold Content -->
+          <!-- CLient List -->
           <div id="on-hold-content" class="custom-scroll">
             <ul class="drag-item-list" id="on-hold-list"></ul>
           </div>
-          <!-- Add Button Group -->
           <div class="add-btn-group">
             <div class="add-btn" onclick="showInputBox(0)">
               <span class="plus-sign">+</span>
@@ -62,14 +62,17 @@
             <h1>This Week Hours</h1>
           </span>
           <!-- On Hold Content -->
-          <!-- <div id="on-hold-content" class="custom-scroll">
+          <div id="on-hold-content" class="custom-scroll">
+            <div></div>
             <ul class="drag-item-list" id="on-hold-list"></ul>
-          </div> -->
+          </div>
           <!-- Add Button Group -->
-          <!-- <div class="add-btn-group">
-            <div class="add-btn" onclick="showInputBox(0)">
+          <div class="add-btn-group">
+            <div class="add-btn" onclick="showClientList(0)">
               <span class="plus-sign">+</span>
-              <span>Add Client</span>
+              <!-- need function to show dropdown of client list to add from Clients
+              DOM needs to show client name and counter for number of hours -->
+              <span><div class="add-button navbar-item" id="show-modal">Add Client</div></span>
             </div>
             <div class="add-btn solid" onclick="hideInputBox(0)">
               <span>Save Client</span>
@@ -77,8 +80,22 @@
           </div>
           <div class="add-container">
             <div class="add-item" contenteditable="true"></div>
-          </div> -->
+          </div>
         </li>
+        <!-- Modal -->
+
+        <div class="modal-container" id="modal">
+          <div class="modal">
+            <div class="modal-header">
+              <h3>Select a Client</h3>
+            </div>
+            <ul class="suggested-list">
+              <li class="suggested-list-li">Josh</li>
+              <li class="suggested-list-li">Jonah</li>
+            </ul>
+          </div>
+          <i class="fas fa-times close-icon" id="close-modal"></i>
+        </div>
       </ul>
     </section>
     <section id="projects"><h1>Archive</h1></section>
