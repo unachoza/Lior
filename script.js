@@ -33,6 +33,7 @@ let listArrays = [];
 let draggedItem;
 let dragging = false;
 let currentColumn;
+let totalClientHoursArray = [];
 
 const getSavedColumnsFromLocalStorageOrSetDefault = () => {
   localStorage.getItem('onHoldItems')
@@ -108,13 +109,34 @@ const hideInputBox = (column) => {
 // };
 const displayClientHours = (client, columnElement, index) => {
   console.log('clicked');
+  // const
   const clientHoursElement = document.createElement('li');
-  clientHoursElement.textContent = client;
+  clientHoursElement.innerHTML = `
+  <div class="client-title">
+  <div>Josh</div>
+  <div class="client-hours">0</div>
+  </div>
+  <div class="button-group">
+  <div class="add-btn" onclick="">
+    <span class="plus-sign">+</span>
+    <span>1hr</span>
+  </div>
+  <div class="add-btn" onclick="">
+    <span class="plus-sign">+</span>
+    <span>30 min</span>
+  </div>
+  </div>
+`;
+  // clientHoursElement.textContent = 0;
   clientHoursElement.id = index;
-  clientHoursElement.classList.add('client-hours');
+  clientHoursElement.classList.add('client-hours-container');
   columnElement.appendChild(clientHoursElement);
+  modal;
+  modal.classList.remove('show-modal');
+  totalClientHoursArray.push();
 
   console.log(clientHoursElement);
+  // let;
   // localStorage.setItem('countdown', JSON.stringify(savedCountdown));
   // // Check if no date entered
   // if (countdownDate === '') {
@@ -124,6 +146,9 @@ const displayClientHours = (client, columnElement, index) => {
   //   countdownValue = new Date(countdownDate).getTime();
   //   updateDOM();
   // }
+};
+const displayWeekTotal = (array) => {
+  let sum = array.reduce((pv, cv) => pv + cv, 0);
 };
 
 updateDOM();

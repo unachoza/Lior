@@ -85,8 +85,8 @@
               <h3>Select a Client</h3>
             </div>
             <ul class="suggested-list">
-              <li class="suggested-list-li" onclick="displayClientHours('josh','progress-column', 1)">Josh</li>
-              <li class="suggested-list-li" onclick="console.log('jonah')">Jonah</li>
+              <li class="suggested-list-li" onclick="displayClientHours('josh',progressListElement, 1)">Josh</li>
+              <li class="suggested-list-li" onclick="displayClientHours('Jonah',progressListElement, 2)">Jonah</li>
             </ul>
           </div>
           <i class="fas fa-times close-icon" id="close-modal"></i>
@@ -95,6 +95,18 @@
     </section>
     <section id="archive"><h1>Archive</h1></section>
     <section id="contact"><h1>Available Anytime</h1></section>
+    <div>
+      <div>`${client}`</div>
+      <div>{clienthours}</div>
+      <div class="add-btn" onclick="">
+        <span class="plus-sign">+</span>
+        <span>1hour</span>
+      </div>
+      <div class="add-btn" onclick="">
+        <span class="plus-sign">+</span>
+        <span>30 min</span>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
