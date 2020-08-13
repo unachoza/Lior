@@ -1,3 +1,4 @@
+//KANBAN DOM
 const addBtns = document.querySelectorAll('.add-btn:not(.solid)');
 const saveItemBtns = document.querySelectorAll('.solid');
 const addItemContainers = document.querySelectorAll('.add-container');
@@ -8,8 +9,24 @@ const progressListElement = document.getElementById('progress-list');
 const completeListElement = document.getElementById('complete-list');
 const onHoldListElement = document.getElementById('on-hold-list');
 
-let updatedOnLoad = false;
+//NAVIGATION DOM
+const toggleSwitch = document.querySelector('input[type="checkbox"]');
+const toggleIcon = document.getElementById('toggle-icon');
+const menuBars = document.getElementById('menu-bars');
+const overlay = document.getElementById('overlay');
+const nav1 = document.getElementById('nav-1');
+const nav2 = document.getElementById('nav-2');
+const nav3 = document.getElementById('nav-3');
+const nav4 = document.getElementById('nav-4');
+const nav5 = document.getElementById('nav-5');
+const navItems = [nav1, nav2, nav3, nav4, nav5];
 
+//MODAL DOM
+const modal = document.getElementById('modal');
+const modalShow = document.getElementById('show-modal');
+const modalClose = document.getElementById('close-modal');
+
+let updatedOnLoad = false;
 let onHoldListArray = [];
 let listArrays = [];
 
@@ -18,11 +35,9 @@ let dragging = false;
 let currentColumn;
 
 const getSavedColumnsFromLocalStorageOrSetDefault = () => {
-  if (localStorage.getItem('onHoldItems')) {
-    onHoldListArray = JSON.parse(localStorage.onHoldItems);
-  } else {
-    onHoldListArray = ['Josh'];
-  }
+  localStorage.getItem('onHoldItems')
+    ? (onHoldListArray = JSON.parse(localStorage.onHoldItems))
+    : (onHoldListArray = ['Josh']);
 };
 
 const updateSavedColumnsInLocalStorage = () => {
@@ -61,6 +76,16 @@ const addToColumn = (column) => {
   updateDOM(column);
 };
 
+//delete item
+const updateItem = (id, column) => {
+  const selectedArray = listArrays[column];
+  const selectedColumn = listColumns[column].children;
+  if (!dragging) {
+    !selectedColumn[id].textContent ? delete selectedArray[id] : (selectedArray[id] = selectedColumn[id].textContent);
+    updateDOM();
+  }
+};
+
 const showInputBox = (column) => {
   addBtns[column].style.visibility = 'hidden';
   saveItemBtns[column].style.display = 'flex';
@@ -73,28 +98,44 @@ const hideInputBox = (column) => {
   addItemContainers[column].style.display = 'none';
   addToColumn(column);
 };
-const showClientList = () => {};
+// const createItemElements = (columnElement, column, item, index) => {
+//   const listElement = document.createElement('li');
+//   listElement.textContent = item;
+//   listElement.id = index;
+//   listElement.classList.add('drag-item');
+//   listElement.contentEditable = true;
+//   columnElement.appendChild(listElement);
+// };
+const displayClientHours = (client, columnElement, index) => {
+  console.log('clicked');
+  const clientHoursElement = document.createElement('li');
+  clientHoursElement.textContent = client;
+  clientHoursElement.id = index;
+  clientHoursElement.classList.add('client-hours');
+  columnElement.appendChild(clientHoursElement);
+
+  console.log(clientHoursElement);
+  // localStorage.setItem('countdown', JSON.stringify(savedCountdown));
+  // // Check if no date entered
+  // if (countdownDate === '') {
+  //   alert('Please select a date for the countdown.');
+  // } else {
+  //   // Get number version of current Date, updateDOM
+  //   countdownValue = new Date(countdownDate).getTime();
+  //   updateDOM();
+  // }
+};
 
 updateDOM();
-const toggleSwitch = document.querySelector('input[type="checkbox"]');
-const toggleIcon = document.getElementById('toggle-icon');
-const menuBars = document.getElementById('menu-bars');
-const overlay = document.getElementById('overlay');
-const nav1 = document.getElementById('nav-1');
-const nav2 = document.getElementById('nav-2');
-const nav3 = document.getElementById('nav-3');
-const nav4 = document.getElementById('nav-4');
-const nav5 = document.getElementById('nav-5');
-const navItems = [nav1, nav2, nav3, nav4, nav5];
 
 // Control Navigation Animation
-function navAnimation(direction1, direction2) {
+const navAnimation = (direction1, direction2) => {
   navItems.forEach((nav, i) => {
     nav.classList.replace(`slide-${direction1}-${i + 1}`, `slide-${direction2}-${i + 1}`);
   });
-}
+};
 
-function toggleNav() {
+const toggleNav = () => {
   menuBars.classList.toggle('change');
   overlay.classList.toggle('overlay-active');
   if (overlay.classList.contains('overlay-active')) {
@@ -104,23 +145,19 @@ function toggleNav() {
     overlay.classList.replace('overlay-slide-right', 'overlay-slide-left');
     navAnimation('in', 'out');
   }
-}
+};
 
-// Event Listeners
-menuBars.addEventListener('click', toggleNav);
-navItems.forEach((nav) => {
-  nav.addEventListener('click', toggleNav);
-});
-
-const modal = document.getElementById('modal');
-const modalShow = document.getElementById('show-modal');
-const modalClose = document.getElementById('close-modal');
 // Show Modal, Focus on Input
-function showModal() {
+const showModal = () => {
   modal.classList.add('show-modal');
-}
+};
 
 // Modal Event Listeners
 modalShow.addEventListener('click', showModal);
 modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
+// Navigation Event Listeners
+menuBars.addEventListener('click', toggleNav);
+navItems.forEach((nav) => {
+  nav.addEventListener('click', toggleNav);
+});

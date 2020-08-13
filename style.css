@@ -628,3 +628,9 @@ h3 {
   color: blue;
   cursor: pointer;
 }
+.client-hours {
+  height: 150px;
+  width: 150px;
+  border: solid red 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
