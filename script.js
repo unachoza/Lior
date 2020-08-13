@@ -35,10 +35,20 @@ let dragging = false;
 let currentColumn;
 let totalClientHoursArray = [];
 
+//LIOR ACCOUNTING DOM
+let savedJoshHours;
 const getSavedColumnsFromLocalStorageOrSetDefault = () => {
   localStorage.getItem('onHoldItems')
     ? (onHoldListArray = JSON.parse(localStorage.onHoldItems))
     : (onHoldListArray = ['Josh']);
+  if (localStorage.getItem('JoshHours')) {
+    console.log('its there');
+    JoshHours = JSON.parse(localStorage.JoshHours);
+    console.log(JoshHours);
+    displayClientHours(JoshHours, progressListElement, 1);
+  } else {
+    totalClientHoursArray = ['JoshHours'];
+  }
 };
 
 const updateSavedColumnsInLocalStorage = () => {
@@ -62,9 +72,9 @@ const createItemElements = (columnElement, column, item, index) => {
 
 const updateDOM = () => {
   if (!updatedOnLoad) getSavedColumnsFromLocalStorageOrSetDefault();
-  onHoldListElement.textContent = '';
-  onHoldListArray.forEach((onHoldItem, index) => createItemElements(onHoldListElement, 0, onHoldItem, index));
-  onHoldListArray = removeEmptyValues(onHoldListArray);
+  // onHoldListElement.textContent = '';
+  // onHoldListArray.forEach((onHoldItem, index) => createItemElements(onHoldListElement, 0, onHoldItem, index));
+  // onHoldListArray = removeEmptyValues(onHoldListArray);
   updatedOnLoad = true;
   updateSavedColumnsInLocalStorage();
 };
@@ -107,9 +117,11 @@ const hideInputBox = (column) => {
 //   listElement.contentEditable = true;
 //   columnElement.appendChild(listElement);
 // };
-const displayClientHours = (client, columnElement, index) => {
-  console.log('clicked');
-  // const
+const displayClientHours = (ClientObj, columnElement, index) => {
+  let savedClientHours = {
+    title: ClientObj.title,
+    hours: ClientObj.hours,
+  };
   const clientHoursElement = document.createElement('li');
   clientHoursElement.innerHTML = `
   <div class="client-title">
@@ -127,31 +139,34 @@ const displayClientHours = (client, columnElement, index) => {
   </div>
   </div>
 `;
-  // clientHoursElement.textContent = 0;
   clientHoursElement.id = index;
   clientHoursElement.classList.add('client-hours-container');
   columnElement.appendChild(clientHoursElement);
   modal;
   modal.classList.remove('show-modal');
   totalClientHoursArray.push();
-
   console.log(clientHoursElement);
-  // let;
-  // localStorage.setItem('countdown', JSON.stringify(savedCountdown));
-  // // Check if no date entered
-  // if (countdownDate === '') {
-  //   alert('Please select a date for the countdown.');
-  // } else {
-  //   // Get number version of current Date, updateDOM
-  //   countdownValue = new Date(countdownDate).getTime();
-  //   updateDOM();
-  // }
+  localStorage.setItem('JoshHours', JSON.stringify(savedClientHours));
 };
+
 const displayWeekTotal = (array) => {
   let sum = array.reduce((pv, cv) => pv + cv, 0);
 };
 
 updateDOM();
+
+const restorePreviousClientHours = () => {
+  // Get countdown from localStorage if available
+  if (localStorage.getItem('countdown')) {
+    countdown = JSON.parse(localStorage.getItem('countdown'));
+    inputContainer.hidden = true;
+    const { title, date } = countdown;
+    countdownTitle = title;
+    countdownDate = date;
+    countdownValue = new Date(countdownDate).getTime();
+    updateDOM();
+  }
+};
 
 // Control Navigation Animation
 const navAnimation = (direction1, direction2) => {
@@ -183,6 +198,7 @@ modalClose.addEventListener('click', () => modal.classList.remove('show-modal'))
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
 // Navigation Event Listeners
 menuBars.addEventListener('click', toggleNav);
+
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
