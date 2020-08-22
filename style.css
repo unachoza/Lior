@@ -172,7 +172,7 @@ ul {
 
 .add-btn {
   margin: 5px;
-  padding: 3px 5px;
+  padding: 15px 10px;
   border: solid black 1px;
   border-radius: 4px;
   color: black;
@@ -184,6 +184,9 @@ ul {
   border-radius: 5px;
   transition: all 0.3s ease-in;
   user-select: none;
+  position: absolute;
+  bottom: 10vh;
+  left: 30vw;
 }
 
 .add-btn:hover {
