@@ -109,7 +109,7 @@ const hideInputBox = (column) => {
   addItemContainers[column].style.display = 'none';
   addToColumn(column);
 };
-const ThisNeedsToBeLogged = (e) => {
+const log = (e) => {
   console.log(e);
 };
 // const createItemElements = (columnElement, column, item, index) => {

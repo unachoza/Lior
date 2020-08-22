@@ -10,6 +10,11 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
+//MODAL DOM
+const modal = document.getElementById('modal');
+const modalShow = document.getElementById('show-modal');
+const modalClose = document.getElementById('close-modal');
+
 // Control Navigation Animation
 const navAnimation = (direction1, direction2) => {
   navItems.forEach((nav, i) => {
@@ -34,3 +39,13 @@ menuBars.addEventListener('click', toggleNav);
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
+
+// Show Modal, Focus on Input
+const showModal = () => {
+  modalShow.classList.add('show-modal');
+};
+
+// Modal Event Listeners
+// modalShow.addEventListener('click', showModal);
+// modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
+// window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
