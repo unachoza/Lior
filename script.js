@@ -109,6 +109,9 @@ const hideInputBox = (column) => {
   addItemContainers[column].style.display = 'none';
   addToColumn(column);
 };
+const ThisNeedsToBeLogged = (e) => {
+  console.log(e);
+};
 // const createItemElements = (columnElement, column, item, index) => {
 //   const listElement = document.createElement('li');
 //   listElement.textContent = item;
@@ -117,27 +120,20 @@ const hideInputBox = (column) => {
 //   listElement.contentEditable = true;
 //   columnElement.appendChild(listElement);
 // };
-const displayClientHours = (ClientObj, columnElement, index) => {
+const displayClientHours = (ClientObj, columnElement, index, e = null) => {
+  console.log(e, 'this is e, something');
   let savedClientHours = {
     title: ClientObj.title,
     hours: ClientObj.hours,
   };
+  // <div>${client title here}</div>
   const clientHoursElement = document.createElement('li');
   clientHoursElement.innerHTML = `
   <div class="client-title">
   <div>Josh</div>
   <div class="client-hours">0</div>
   </div>
-  <div class="button-group">
-  <div class="add-btn" onclick="">
-    <span class="plus-sign">+</span>
-    <span>1hr</span>
-  </div>
-  <div class="add-btn" onclick="">
-    <span class="plus-sign">+</span>
-    <span>30 min</span>
-  </div>
-  </div>
+ 
 `;
   clientHoursElement.id = index;
   clientHoursElement.classList.add('client-hours-container');
