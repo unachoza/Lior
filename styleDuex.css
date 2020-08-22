@@ -43,20 +43,18 @@ h1 {
   text-shadow: 2px 2px 5px var(--secondary-color);
 }
 
-.main-title {
-  margin: 0 auto;
-  text-align: center;
-  font-size: 3rem;
-}
-
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.drag-container {
-  margin: 20px;
+.column-container {
+  position: relative;
+  margin: 0 auto;
+  border: solid red;
+  width: 96vw;
+  height: 89vh;
 }
 
 .drag-list {
@@ -67,7 +65,7 @@ ul {
 .header {
   display: flex;
   justify-content: center;
-  width: 95vw;
+  width: 98vw;
   height: 8vh;
   margin: 10px 5px;
   background-color: rgba(0, 0, 0);
@@ -233,17 +231,6 @@ ul {
   li {
     font-size: 1.2rem;
   }
-}
-
-html {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: rgb(83, 83, 83);
-  background: linear-gradient(5deg, rgba(83, 83, 83, 1) 65%, rgba(0, 0, 0, 1) 98%);
-  font-family: Nunito, sans-serif;
 }
 
 /* --- Navigation Menu ------------------------------ */
@@ -441,10 +428,11 @@ nav li:nth-of-type(5) {
 /* --- Sections ------------------------------------ */
 
 section {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
   position: relative;
-  display: flex;
   justify-content: center;
   text-transform: uppercase;
   letter-spacing: 2px;
