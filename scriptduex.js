@@ -10,11 +10,14 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
-// //MODAL DOM
-// const modal = document.getElementById('modal');
-// const modalShow = document.getElementById('show-modal');
-// const modalClose = document.getElementById('close-modal');
+//MODAL DOM
+const modal = document.getElementById('modal');
+console.log('this is the modal', modal);
 
+const openButton = document.getElementById('open-model-button');
+const modalShow = document.getElementById('show-modal');
+const modalClose = document.getElementById('close-modal');
+// console.log(openButton);
 // Control Navigation Animation
 const navAnimation = (direction1, direction2) => {
   navItems.forEach((nav, i) => {
@@ -40,12 +43,17 @@ navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
 
-// // Show Modal, Focus on Input
-// const showModal = () => {
-//   modalShow.classList.add('show-modal');
-// };
+// Show Modal, Focus on Input
+const showModal = () => {
+  modal.classList.add('show-modal');
+};
 
-// // Modal Event Listeners
+// Modal Event Listeners
+
+openButton.addEventListener('click', showModal);
 // modalShow.addEventListener('click', showModal);
-// // modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
-// // window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
+modalClose.addEventListener('click', () => {
+  console.log('clicked');
+  modal.classList.remove('show-modal');
+});
+window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
