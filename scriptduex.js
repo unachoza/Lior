@@ -12,7 +12,6 @@ const navItems = [nav1, nav2, nav3, nav4, nav5];
 
 //MODAL DOM
 const modal = document.getElementById('modal');
-console.log('this is the modal', modal);
 
 const openButton = document.getElementById('open-model-button');
 const modalShow = document.getElementById('show-modal');
@@ -20,6 +19,9 @@ const modalClose = document.getElementById('close-modal');
 const addClientForm = document.getElementById('client-form');
 const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
+const modalContainer = document.getElementsByClassName('modal-container');
+let mc = Array.from(modalContainer);
+mc = mc[0];
 
 // Array for list of clients
 let clients = [];
@@ -57,10 +59,6 @@ const showModal = () => {
 
 openButton.addEventListener('click', showModal);
 // modalShow.addEventListener('click', showModal);
-modalClose.addEventListener('click', () => {
-  console.log('clicked');
-  modal.classList.remove('show-modal');
-});
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
 
 // Build Client List
@@ -74,8 +72,10 @@ const buildClientList = () => {
     clientContainer.appendChild(clientItem);
   });
 };
+
 const fetchClientList = () => {
   if (localStorage.getItem('clients')) {
+    console.log('yes');
     clients = JSON.parse(localStorage.getItem('clients'));
   } else {
     clients = [
@@ -103,4 +103,11 @@ const addClient = (e) => {
   clientNameElement.focus();
 };
 
+fetchClientList();
 addClientForm.addEventListener('submit', addClient);
+
+// add time to client
+const addTimeToClient = (client, time) => {
+  client.hours = +-time;
+  console.log(client);
+};
