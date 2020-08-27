@@ -13,7 +13,7 @@ const navItems = [nav1, nav2, nav3, nav4, nav5];
 //MODAL DOM
 const modal = document.getElementById('modal');
 
-const openButton = document.getElementById('open-model-button');
+// const openButton = document.getElementById('open-model-button');
 const modalShow = document.getElementById('show-modal');
 const modalClose = document.getElementById('close-modal');
 const addClientForm = document.getElementById('client-form');
@@ -44,8 +44,8 @@ const toggleNav = () => {
     navAnimation('in', 'out');
   }
 };
-menuBars.addEventListener('click', toggleNav);
 
+menuBars.addEventListener('click', toggleNav);
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
@@ -56,9 +56,7 @@ const showModal = () => {
 };
 
 // Modal Event Listeners
-
-openButton.addEventListener('click', showModal);
-// modalShow.addEventListener('click', showModal);
+// openButton.addEventListener('click', showModal);
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
 
 // Build Client List
