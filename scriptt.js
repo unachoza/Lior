@@ -1,3 +1,5 @@
+let clients = [];
+
 ////NAVIGATION DOM
 const toggleSwitch = document.querySelector('input[type="checkbox"]');
 const toggleIcon = document.getElementById('toggle-icon');
@@ -13,6 +15,9 @@ const navItems = [nav1, nav2, nav3, nav4, nav5];
 // Clients Section
 const clientButton = document.getElementById('add-client-button');
 const modalElement = document.getElementById('modal');
+const addClientForm = document.getElementById('client-form');
+const clientNameElement = document.getElementById('client-name');
+const clientContainer = document.getElementById('client-container');
 
 const openModal = () => {
   modalElement.classList.add('open-modal');
@@ -22,12 +27,57 @@ const showPopup = () => {
   modalElement.classList.remove('hide');
   modalElement.classList.add('popup-open');
 };
-const hidePopup = (element) => {
-  element.classList.add('hide');
-  element.classList.remove('popup-open');
+const hidePopup = () => {
+  modalElement.classList.add('hide');
+  modalElement.classList.remove('popup-open');
 };
 
 clientButton.addEventListener('click', showPopup);
+
+//make add client form work with: add to dom: add to local storage
+// Adding Clients to Client List
+// Build Client List
+const buildClientList = () => {
+  clientContainer.textContent = '';
+  clients.forEach((client) => {
+    const { name } = client;
+    const clientItem = document.createElement('div');
+    clientItem.classList.add('item');
+    clientItem.textContent = name;
+    clientContainer.appendChild(clientItem);
+  });
+};
+
+const addClient = (e) => {
+  console;
+  e.preventDefault();
+  const nameValue = clientNameElement.value;
+  const client = {
+    name: nameValue,
+    // hours: clientHoursValue,
+  };
+  clients.push(client);
+  localStorage.setItem('clients', JSON.stringify(clients));
+  fetchClientList();
+  addClientForm.reset();
+  clientNameElement.focus();
+  hidePopup();
+};
+const fetchClientList = () => {
+  if (localStorage.getItem('clients')) {
+    console.log('yes');
+    clients = JSON.parse(localStorage.getItem('clients'));
+  } else {
+    clients = [
+      {
+        name: 'Choza ',
+      },
+    ];
+    localStorage.setItem('clients', JSON.stringify(clients));
+  }
+  buildClientList();
+};
+addClientForm.addEventListener('submit', addClient);
 
 ///////NAVIGATION JS
 const navAnimation = (direction1, direction2) => {
