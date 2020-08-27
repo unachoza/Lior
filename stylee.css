@@ -228,3 +228,99 @@ nav li:nth-of-type(5) {
 .change .bar3 {
   transform: rotate(45deg) translate(-6px, -8px);
 }
+
+/* SECTIONS */
+section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  /* justify-content: center; */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--primaryColor);
+}
+
+section#home {
+  margin-top: 65px;
+  background-image: url('https://res.cloudinary.com/dh41vh9dx/image/upload/v1597158896/recompressedgar-chaparro-.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+section#home a {
+  position: absolute;
+  z-index: 2;
+  top: 1.5rem;
+  left: 1.5rem;
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding-bottom: 5px;
+  color: var(--primaryColor);
+  border-bottom: 1px solid var(--primaryColor);
+}
+
+section#clients {
+  background-color: var(--navColor2);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  width: 98vw;
+  height: 8vh;
+  margin: 10px 5px;
+  background-color: rgba(0, 0, 0);
+  border-radius: 5px;
+}
+
+.header h1 {
+  font-size: 1.25rem;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  width: 96vw;
+  height: 89vh;
+  display: flex;
+}
+/* ITEMS IN COLUMNS */
+.item-list {
+  min-height: 50px;
+}
+
+.item {
+  margin: 10px;
+  padding: 10px;
+  height: fit-content;
+  background-color: var(--background-opacity);
+  border-radius: var(--border-radius);
+  line-height: 1.5rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.item:focus {
+  outline: none;
+  background-color: white;
+  color: black;
+}
+
+button {
+  padding: 1rem;
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  font-size: 1.2rem;
+  transition: all 0.3s ease-in;
+  user-select: none;
+  color: white;
+  background-color: black;
+}
