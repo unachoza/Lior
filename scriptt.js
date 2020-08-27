@@ -1,4 +1,4 @@
-// //NAVIGATION DOM
+////NAVIGATION DOM
 const toggleSwitch = document.querySelector('input[type="checkbox"]');
 const toggleIcon = document.getElementById('toggle-icon');
 const menuBars = document.getElementById('menu-bars');
@@ -10,8 +10,25 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
-// Array for list of clients
+// Clients Section
+const clientButton = document.getElementById('add-client-button');
 
+const openModal = () => {
+  modal.classList.add('open-modal');
+};
+
+const showPopup = (element) => {
+  element.classList.remove('hide');
+  element.classList.add('popup-open');
+};
+const hidePopup = (element) => {
+  element.classList.add('hide');
+  element.classList.remove('popup-open');
+};
+
+clientButton.addEventListener('click', (e) => console.log(e, 'clicked'));
+
+///////NAVIGATION JS
 const navAnimation = (direction1, direction2) => {
   navItems.forEach((nav, i) => {
     nav.classList.replace(`slide-${direction1}-${i + 1}`, `slide-${direction2}-${i + 1}`);
