@@ -12,21 +12,22 @@ const navItems = [nav1, nav2, nav3, nav4, nav5];
 
 // Clients Section
 const clientButton = document.getElementById('add-client-button');
+const modalElement = document.getElementById('modal');
 
 const openModal = () => {
-  modal.classList.add('open-modal');
+  modalElement.classList.add('open-modal');
 };
 
-const showPopup = (element) => {
-  element.classList.remove('hide');
-  element.classList.add('popup-open');
+const showPopup = () => {
+  modalElement.classList.remove('hide');
+  modalElement.classList.add('popup-open');
 };
 const hidePopup = (element) => {
   element.classList.add('hide');
   element.classList.remove('popup-open');
 };
 
-clientButton.addEventListener('click', (e) => console.log(e, 'clicked'));
+clientButton.addEventListener('click', showPopup);
 
 ///////NAVIGATION JS
 const navAnimation = (direction1, direction2) => {

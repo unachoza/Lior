@@ -236,7 +236,6 @@ section {
   width: 100%;
   height: 100vh;
   position: relative;
-  /* justify-content: center; */
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--primaryColor);
@@ -325,8 +324,22 @@ button {
   background-color: black;
 }
 
+/* MODAL */
+.modal-container {
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .hide {
   display: none;
+}
+.popup-open {
+  opacity: 1;
+  animation: modalopen 0.2s;
 }
 .popup {
   position: absolute;
@@ -348,4 +361,13 @@ button {
   color: white;
   font-size: 20px;
   opacity: 1;
+}
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
