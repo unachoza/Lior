@@ -12,12 +12,19 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
-// Clients Section
+// Clients Section DOM
 const clientButton = document.getElementById('add-client-button');
 const modalElement = document.getElementById('modal');
 const addClientForm = document.getElementById('client-form');
 const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
+
+//Client Variables
+let countdownTitle = '';
+let countdownDate = '';
+let countdownValue = Date;
+let countdownActive;
+let savedClientList;
 
 const openModal = () => {
   modalElement.classList.add('open-modal');
@@ -34,46 +41,60 @@ const hidePopup = () => {
 
 clientButton.addEventListener('click', showPopup);
 
-//make add client form work with: add to dom: add to local storage
-// Adding Clients to Client List
-// Build Client List
 const buildClientList = () => {
+  console.log('who are the', savedClientList);
   clientContainer.textContent = '';
-  clients.forEach((client) => {
-    const { name } = client;
+  savedClientList.forEach((client) => {
+    const { clientName, clientHours } = client;
     const clientItem = document.createElement('div');
     clientItem.classList.add('item');
-    clientItem.textContent = name;
+    clientItem.textContent = clientName;
     clientContainer.appendChild(clientItem);
   });
 };
 
 const addClient = (e) => {
-  console;
+  console.log('add client func');
   e.preventDefault();
   const nameValue = clientNameElement.value;
-  const client = {
-    name: nameValue,
-    // hours: clientHoursValue,
+  const newClient = {
+    clientName: nameValue,
+    clientHours: 0,
   };
-  clients.push(client);
-  localStorage.setItem('clients', JSON.stringify(clients));
-  fetchClientList();
+  clients.push(newClient);
+  console.log(clients);
+  localStorage.setItem('cliens', JSON.stringify(clients));
+  fetchClientListFromLocalStorage();
   addClientForm.reset();
   clientNameElement.focus();
   hidePopup();
 };
-const fetchClientList = () => {
+
+// function restorePreviousCountdown() {
+//   // Get countdown from localStorage if available
+//   if (localStorage.getItem('countdown')) {
+//     inputContainer.hidden = true;
+//     savedCountdown = JSON.parse(localStorage.getItem('countdown'));
+//     countdownTitle = savedCountdown.title;
+//     countdownDate = savedCountdown.date;
+//     countdownValue = new Date(countdownDate).getTime();
+//     updateDOM();
+//   }
+// }
+
+// clientName = savedClientList.name;
+// clientHours = savedClientList.hours;
+const fetchClientListFromLocalStorage = () => {
   if (localStorage.getItem('clients')) {
     console.log('yes');
-    clients = JSON.parse(localStorage.getItem('clients'));
+    savedClientList = JSON.parse(localStorage.getItem('clients'));
+    console.log(savedClientList);
   } else {
-    clients = [
-      {
-        name: 'Choza ',
-      },
-    ];
-    localStorage.setItem('clients', JSON.stringify(clients));
+    savedClientList = {
+      clientName: 'Choza',
+      hours: 0,
+    };
+    localStorage.setItem('clients', JSON.stringify(savedClientList));
   }
   buildClientList();
 };
@@ -103,3 +124,5 @@ menuBars.addEventListener('click', toggleNav);
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
+
+fetchClientListFromLocalStorage();
