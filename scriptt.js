@@ -13,8 +13,10 @@ const nav5 = document.getElementById('nav-5');
 const navItems = [nav1, nav2, nav3, nav4, nav5];
 
 // Clients Section DOM
-const clientButton = document.getElementById('add-client-button');
+const newClientButton = document.getElementById('new-client-button');
+const addClientButton = document.getElementById('add-client-button');
 const modalElement = document.getElementById('modal');
+const modalElementClientList = document.getElementById('modalList');
 const addClientForm = document.getElementById('client-form');
 const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
@@ -22,20 +24,21 @@ const clientContainer = document.getElementById('client-container');
 //Client Variables
 let savedClientList;
 
-const openModal = () => {
-  modalElement.classList.add('open-modal');
+// const openModal = () => {
+//   modalElement.classList.add('open-modal');
+// };
+
+const showPopup = (modalInput) => {
+  modalInput.classList.remove('hide');
+  modalInput.classList.add('popup-open');
+};
+const hidePopup = (modalInput) => {
+  modalInput.classList.add('hide');
+  modalInput.classList.remove('popup-open');
 };
 
-const showPopup = () => {
-  modalElement.classList.remove('hide');
-  modalElement.classList.add('popup-open');
-};
-const hidePopup = () => {
-  modalElement.classList.add('hide');
-  modalElement.classList.remove('popup-open');
-};
-
-clientButton.addEventListener('click', showPopup);
+newClientButton.addEventListener('click', () => showPopup(modalElement));
+addClientButton.addEventListener('click', () => showPopup(modalElementClientList));
 
 const buildClientList = () => {
   console.log('who are the', savedClientList);
@@ -43,7 +46,7 @@ const buildClientList = () => {
   savedClientList
     ? savedClientList.forEach((client) => {
         console.log(client);
-        const { clientName, clientHours } = client;
+        const { clientName } = client;
         const clientItem = document.createElement('div');
         clientItem.classList.add('item');
         clientItem.textContent = clientName;
@@ -58,7 +61,6 @@ const addClient = (e) => {
   const nameValue = clientNameElement.value;
   const newClient = {
     clientName: nameValue,
-    clientHours: 0,
   };
   clients.push(newClient);
   console.log(clients);
@@ -66,7 +68,7 @@ const addClient = (e) => {
   fetchClientListFromLocalStorage();
   addClientForm.reset();
   clientNameElement.focus();
-  hidePopup();
+  hidePopup(modalElement);
 };
 
 const fetchClientListFromLocalStorage = () => {

@@ -12,19 +12,35 @@ const navItems = [nav1, nav2, nav3, nav4, nav5];
 
 //MODAL DOM
 const modal = document.getElementById('modal');
-
+//Client Variables
+let savedClientList;
 // const openButton = document.getElementById('open-model-button');
-const modalShow = document.getElementById('show-modal');
-const modalClose = document.getElementById('close-modal');
+// Clients Section DOM
+const clientButton = document.getElementById('add-client-button');
+const modalElement = document.getElementById('modal');
 const addClientForm = document.getElementById('client-form');
 const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
-const modalContainer = document.getElementsByClassName('modal-container');
-let mc = Array.from(modalContainer);
-mc = mc[0];
+
+//Client Variables
+
+const openModal = () => {
+  modalElement.classList.add('open-modal');
+};
+
+const showPopup = () => {
+  console.log('clicked');
+  modalElement.classList.remove('hide');
+  modalElement.classList.add('popup-open');
+};
+const hidePopup = () => {
+  modalElement.classList.add('hide');
+  modalElement.classList.remove('popup-open');
+};
+
+clientButton.addEventListener('click', showPopup);
 
 // Array for list of clients
-let clients = [];
 
 const navAnimation = (direction1, direction2) => {
   navItems.forEach((nav, i) => {
@@ -59,49 +75,44 @@ const showModal = () => {
 // openButton.addEventListener('click', showModal);
 window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
 
-// Build Client List
 const buildClientList = () => {
+  console.log('who are the', savedClientList);
   clientContainer.textContent = '';
-  clients.forEach((client) => {
-    const { name } = client;
-    const clientItem = document.createElement('div');
-    clientItem.classList.add('drag-item');
-    clientItem.textContent = name;
-    clientContainer.appendChild(clientItem);
-  });
+  savedClientList
+    ? savedClientList.forEach((client) => {
+        console.log(client);
+        const { clientName, clientHours } = client;
+        const clientItem = document.createElement('div');
+        clientItem.classList.add('item');
+        clientItem.textContent = clientName;
+        clientContainer.appendChild(clientItem);
+      })
+    : null;
 };
 
-const fetchClientList = () => {
-  if (localStorage.getItem('clients')) {
-    console.log('yes');
-    clients = JSON.parse(localStorage.getItem('clients'));
-  } else {
-    clients = [
-      {
-        name: 'Choza ',
-      },
-    ];
-    localStorage.setItem('clients', JSON.stringify(clients));
-  }
+const addClient = (e) => {
+  console.log('add client func');
+  e.preventDefault();
+  const nameValue = clientNameElement.value;
+  const newClient = {
+    clientName: nameValue,
+    clientHours: 0,
+  };
+  clients.push(newClient);
+  console.log(clients);
+  localStorage.setItem('clients', JSON.stringify(clients));
+  fetchClientListFromLocalStorage();
+  addClientForm.reset();
+  clientNameElement.focus();
+  hidePopup();
+};
+
+const fetchClientListFromLocalStorage = () => {
+  if (localStorage.getItem('clients')) savedClientList = JSON.parse(localStorage.getItem('clients'));
   buildClientList();
 };
 
-// Adding Clients to Client List
-const addClient = (e) => {
-  e.preventDefault();
-  const nameValue = clientNameElement.value;
-  const client = {
-    name: nameValue,
-    // hours: clientHoursValue,
-  };
-  clients.push(client);
-  localStorage.setItem('clients', JSON.stringify(clients));
-  fetchClientList();
-  addClientForm.reset();
-  clientNameElement.focus();
-};
-
-fetchClientList();
+fetchClientListFromLocalStorage();
 addClientForm.addEventListener('submit', addClient);
 
 // add time to client

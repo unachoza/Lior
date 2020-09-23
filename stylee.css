@@ -247,8 +247,7 @@ section#home {
   background-size: cover;
   background-position: center center;
 }
-
-section#home a {
+.title {
   position: absolute;
   z-index: 2;
   top: 1.5rem;
@@ -262,6 +261,21 @@ section#home a {
 
 section#clients {
   background-color: var(--navColor2);
+}
+section#about {
+  background-color: var(--navColor2);
+}
+
+section#week-hrs {
+  background-color: var(--navColor3);
+}
+
+section#archive {
+  background-color: var(--navColor4);
+}
+
+section#contact {
+  background-color: var(--navColor5);
 }
 
 .header {

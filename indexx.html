@@ -28,24 +28,66 @@
     </div>
     <!-- Home -->
     <section id="home">
-      <a href="" target="_blank">Lior Limited Liability</a>
+      <div class="title">Lior Limited Liability</div>
     </section>
 
     <!-- Client List-->
     <section id="clients">
       <span class="header">
-        <h1>Client</h1>
+        <h1>Client List</h1>
       </span>
       <div class="column-container" id="client-container">
         <div class="item">Choza</div>
         <div class="item">me</div>
       </div>
-      <button id="add-client-button">Add Client</button>
+      <button id="new-client-button">New Client</button>
+    </section>
+    <!-- Week Hours  -->
+    <section id="week-hrs">
+      <span class="header">
+        <h1>Week Hours</h1>
+      </span>
+      <div class="column-container" id="hours-container"></div>
+      <div>
+        <button class="open-button" id="add-client-button">add client</button>
+        <button class="open-button" id="hour">1HR</button>
+        <button class="open-button" id="min">30MIN</button>
+      </div>
+    </section>
+    <!-- Archive  -->
+    <section id="archive">
+      <span class="header">
+        <h1>Archive</h1>
+      </span>
+      <div class="column-container" id="client-container"></div>
+    </section>
+    <!-- Contact  -->
+    <section id="contact">
+      <span class="header">
+        <h1>Contact</h1>
+      </span>
+      <div class="column-container" id="client-container"></div>
     </section>
     <div class="modal-container hide" id="modal">
       <div class="modal">
         <div class="modal-header">
           <h3>Add Client</h3>
+        </div>
+        <div class="modal-content">
+          <form id="client-form">
+            <div class="form-group">
+              <label class="form-label" for="client-name"></label>
+              <input class="form-input" type="text" id="client-name" />
+            </div>
+            <button class="open-button" type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal-container hide" id="modalList">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Client List List K</h3>
         </div>
         <div class="modal-content">
           <form id="client-form">
