@@ -20,10 +20,6 @@ const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
 
 //Client Variables
-let countdownTitle = '';
-let countdownDate = '';
-let countdownValue = Date;
-let countdownActive;
 let savedClientList;
 
 const openModal = () => {
@@ -44,13 +40,16 @@ clientButton.addEventListener('click', showPopup);
 const buildClientList = () => {
   console.log('who are the', savedClientList);
   clientContainer.textContent = '';
-  savedClientList.forEach((client) => {
-    const { clientName, clientHours } = client;
-    const clientItem = document.createElement('div');
-    clientItem.classList.add('item');
-    clientItem.textContent = clientName;
-    clientContainer.appendChild(clientItem);
-  });
+  savedClientList
+    ? savedClientList.forEach((client) => {
+        console.log(client);
+        const { clientName, clientHours } = client;
+        const clientItem = document.createElement('div');
+        clientItem.classList.add('item');
+        clientItem.textContent = clientName;
+        clientContainer.appendChild(clientItem);
+      })
+    : null;
 };
 
 const addClient = (e) => {
@@ -63,41 +62,18 @@ const addClient = (e) => {
   };
   clients.push(newClient);
   console.log(clients);
-  localStorage.setItem('cliens', JSON.stringify(clients));
+  localStorage.setItem('clients', JSON.stringify(clients));
   fetchClientListFromLocalStorage();
   addClientForm.reset();
   clientNameElement.focus();
   hidePopup();
 };
 
-// function restorePreviousCountdown() {
-//   // Get countdown from localStorage if available
-//   if (localStorage.getItem('countdown')) {
-//     inputContainer.hidden = true;
-//     savedCountdown = JSON.parse(localStorage.getItem('countdown'));
-//     countdownTitle = savedCountdown.title;
-//     countdownDate = savedCountdown.date;
-//     countdownValue = new Date(countdownDate).getTime();
-//     updateDOM();
-//   }
-// }
-
-// clientName = savedClientList.name;
-// clientHours = savedClientList.hours;
 const fetchClientListFromLocalStorage = () => {
-  if (localStorage.getItem('clients')) {
-    console.log('yes');
-    savedClientList = JSON.parse(localStorage.getItem('clients'));
-    console.log(savedClientList);
-  } else {
-    savedClientList = {
-      clientName: 'Choza',
-      hours: 0,
-    };
-    localStorage.setItem('clients', JSON.stringify(savedClientList));
-  }
+  if (localStorage.getItem('clients')) savedClientList = JSON.parse(localStorage.getItem('clients'));
   buildClientList();
 };
+
 addClientForm.addEventListener('submit', addClient);
 
 ///////NAVIGATION JS
