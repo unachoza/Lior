@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="stylee.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Liors Accounting</title>
@@ -25,88 +26,72 @@
       <div class="bar2"></div>
       <div class="bar3"></div>
     </div>
+    <!-- Home -->
+    <section id="home">
+      <div class="title">Lior Limited Liability</div>
+    </section>
 
-    <section id="home"><a href="" target="_blank">Lior Limited Liability</a></section>
+    <!-- Client List-->
     <section id="clients">
-      <ul class="drag-list">
-        <!-- On Hold Column -->
-        <li class="drag-column on-hold-column">
-          <span class="header">
-            <h1>Clients</h1>
-          </span>
-          <!-- On Hold Content -->
-          <!-- CLient List -->
-          <div id="on-hold-content" class="custom-scroll">
-            <ul class="drag-item-list" id="on-hold-list"></ul>
-          </div>
-          <div class="add-btn-group">
-            <div class="add-btn" onclick="showInputBox(0)">
-              <span class="plus-sign">+</span>
-              <span>Add Client</span>
-            </div>
-            <div class="add-btn solid" onclick="hideInputBox(0)">
-              <span>Save Client</span>
-            </div>
-          </div>
-          <div class="add-container">
-            <div class="add-item" contenteditable="true"></div>
-          </div>
-        </li>
-      </ul>
-    </section>
-    <section id="week-hrs">
-      <ul class="drag-list">
-        <!-- Progress Column -->
-        <li class="drag-column progress-column">
-          <span class="header">
-            <h1>This Week Hours</h1>
-          </span>
-          <!-- Progress Content -->
-          <div id="progress-content" class="custom-scroll">
-            <ul class="drag-item-list" id="progress-list"></ul>
-          </div>
-          <!-- Add Button Group -->
-          <div class="add-btn-group">
-            <div class="add-btn">
-              <span class="plus-sign">+</span>
-              <!-- need function to show dropdown of client list to add from Clients
-            DOM needs to show client name and counter for number of hours -->
-              <span><div class="add-button navbar-item" id="show-modal">Add Client</div></span>
-            </div>
-          </div>
-          <div class="add-container">
-            <div class="add-item" contenteditable="true"></div>
-          </div>
-        </li>
-        <!-- Modal -->
-        <div class="modal-container" id="modal">
-          <div class="modal">
-            <div class="modal-header">
-              <h3>Select a Client</h3>
-            </div>
-            <ul class="suggested-list">
-              <li class="suggested-list-li" onclick="ThisNeedsToBeLogged(e)">Josh</li>
-              <li class="suggested-list-li" onclick="displayClientHours('Jonah',progressListElement, 2)">Jonah</li>
-            </ul>
-          </div>
-          <i class="fas fa-times close-icon" id="close-modal"></i>
-        </div>
-      </ul>
-    </section>
-    <section id="archive"><h1>Archive</h1></section>
-    <section id="contact"><h1>Available Anytime</h1></section>
-    <div>
-      <div>`${client}`</div>
-      <div>{clienthours}</div>
-      <div class="add-btn" onclick="">
-        <span class="plus-sign">+</span>
-        <span>1hour</span>
+      <span class="header">
+        <h1>Client List</h1>
+      </span>
+      <div class="column-container" id="client-container">
+        <div class="item">Choza</div>
+        <div class="item">me</div>
       </div>
-      <div class="add-btn" onclick="">
-        <span class="plus-sign">+</span>
-        <span>30 min</span>
+      <button id="new-client-button">New Client</button>
+    </section>
+    <!-- Week Hours  -->
+    <section id="week-hrs">
+      <span class="header">
+        <h1>Week Hours</h1>
+      </span>
+      <div class="column-container" id="hours-container"></div>
+      <div>
+        <button class="open-button" id="add-client-button">add client</button>
+        <button class="open-button" id="hour">1HR</button>
+        <button class="open-button" id="min">30MIN</button>
+      </div>
+    </section>
+    <!-- Archive  -->
+    <section id="archive">
+      <span class="header">
+        <h1>Archive</h1>
+      </span>
+      <div class="column-container" id="client-container"></div>
+    </section>
+    <!-- Contact  -->
+    <section id="contact">
+      <span class="header">
+        <h1>Contact</h1>
+      </span>
+      <div class="column-container" id="client-container"></div>
+    </section>
+    <div class="modal-container hide" id="modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Add Client</h3>
+        </div>
+        <div class="modal-content">
+          <form id="client-form">
+            <div class="form-group">
+              <label class="form-label" for="client-name"></label>
+              <input class="form-input" type="text" id="client-name" />
+            </div>
+            <button class="open-button" type="submit">Save</button>
+          </form>
+        </div>
       </div>
     </div>
-    <script src="script.js"></script>
+    <div class="modal-container hide" id="modalList">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Client List</h3>
+        </div>
+        <div id="modal-content-list"></div>
+      </div>
+    </div>
+    <script src="scriptt.js"></script>
   </body>
 </html>

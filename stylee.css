@@ -298,7 +298,7 @@ section#contact {
   position: relative;
   margin: 0 auto;
   width: 96vw;
-  height: 89vh;
+  height: 77vh;
   display: flex;
 }
 /* ITEMS IN COLUMNS */
@@ -307,7 +307,7 @@ section#contact {
 }
 
 .item {
-  margin: 10px;
+  margin: 4px 8px;
   padding: 10px;
   height: fit-content;
   background-color: var(--background-opacity);
@@ -351,7 +351,6 @@ button {
   align-items: center;
 }
 .modal {
-  height: 200px;
   width: 200px;
   border: solid;
   display: flex;

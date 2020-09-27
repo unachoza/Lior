@@ -20,6 +20,7 @@ const modalElementClientList = document.getElementById('modalList');
 const addClientForm = document.getElementById('client-form');
 const clientNameElement = document.getElementById('client-name');
 const clientContainer = document.getElementById('client-container');
+const modalClientList = document.getElementById('modal-content-list');
 
 //Client Variables
 let savedClientList;
@@ -36,9 +37,22 @@ const hidePopup = (modalInput) => {
   modalInput.classList.add('hide');
   modalInput.classList.remove('popup-open');
 };
+const showClientList = (savedClientList) => {
+  savedClientList.forEach((client) => {
+    console.log(client);
+    const { clientName } = client;
+    const clientListName = document.createElement('div');
+    clientListName.classList.add('item');
+    clientListName.textContent = clientName;
+    modalClientList.appendChild(clientListName);
+  });
+};
 
 newClientButton.addEventListener('click', () => showPopup(modalElement));
-addClientButton.addEventListener('click', () => showPopup(modalElementClientList));
+addClientButton.addEventListener('click', () => {
+  showPopup(modalElementClientList);
+  showClientList(savedClientList);
+});
 
 const buildClientList = () => {
   console.log('who are the', savedClientList);
