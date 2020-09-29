@@ -306,7 +306,8 @@ section#contact {
 
 .item {
   margin: 4px 8px;
-  width: 90px;
+  width: fit-content;
+  min-width: 100px;
   padding: 10px;
   height: fit-content;
   background-color: var(--background-opacity);
@@ -318,8 +319,15 @@ section#contact {
 
 .item:focus {
   outline: none;
-  background-color: white;
+  background-color: rgba(255, 252, 252, 0.8);
   color: black;
+}
+.selected-item {
+  font-size: 18px;
+  background-color: rgb(81 8 137);
+  color: white;
+  border: solid white;
+  font-weight: 600;
 }
 
 button {

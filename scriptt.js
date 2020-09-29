@@ -38,15 +38,29 @@ const hidePopup = (modalInput) => {
   modalInput.classList.remove('popup-open');
 };
 const showClientList = (savedClientList, e) => {
-  savedClientList.forEach((client) => {
-    const { clientName } = client;
-    const clientListName = document.createElement('div');
-    clientListName.classList.add('item');
-    var node = document.createTextNode(clientName);
-    clientListName.appendChild(node);
-    clientListName.addEventListener('click', (e) => selectClient(e));
-    modalClientList.appendChild(clientListName);
-  });
+  console.log('clicked add client button and running showClientList');
+  console.log(
+    document.getElementById('modal-content-list').childNodes.length,
+    document.getElementById('client-container').childNodes.length
+  );
+  //if not equal then run the list
+  if (
+    document.getElementById('modal-content-list').childNodes.length !==
+    document.getElementById('client-container').childNodes.length
+  ) {
+    console.log('they are not equal');
+    savedClientList.forEach((client) => {
+      const { clientName } = client;
+      const clientListName = document.createElement('div');
+      clientListName.classList.add('item');
+      var node = document.createTextNode(clientName);
+      clientListName.appendChild(node);
+      clientListName.addEventListener('click', (e) => selectClient(e));
+      modalClientList.appendChild(clientListName);
+    });
+  } else {
+    console.log('they are equal');
+  }
 };
 const selectClient = (e) => {
   //from local storagesavedClientHours
@@ -79,6 +93,8 @@ const addHoursToClient = (e) => {
   // let selectedClient = thisWeekHoursList.childNodes[0].textContent
   let selected = e.target.innerHTML;
   console.log('this client was clicked on', selected);
+  console.log(e);
+  e.target.classList.add('selected-item');
   //change css to commiunicate that client was selected
   //find client in localstorage array  thisWeek.thisWeekClientName and save the entire obj
   // access hours from obj, allow add hours add 30min button to function
@@ -88,6 +104,8 @@ const addHoursToClient = (e) => {
 };
 
 const buildThisWeekHoursList = () => {
+  console.log('build hours');
+  thisWeekHoursList.textContent = '';
   let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
   console.log('this is the list for this week', thisWeekList);
   thisWeekList
@@ -109,6 +127,7 @@ addClientButton.addEventListener('click', (e) => {
 });
 
 const buildClientList = () => {
+  console.log('build clients');
   clientContainer.textContent = '';
   savedClientList
     ? savedClientList.forEach((client) => {
@@ -132,7 +151,8 @@ const addClient = () => {
   savedClientList.push(newClient);
   console.log(savedClientList);
   localStorage.setItem('clients', JSON.stringify(savedClientList));
-  fetchClientListFromLocalStorage();
+  // fetchClientListFromLocalStorage();
+  buildClientList();
   addClientForm.reset();
   clientNameElement.focus();
   hidePopup(modalElement);
@@ -148,6 +168,7 @@ const fetchClientListFromLocalStorage = () => {
     savedClientHours = JSON.parse(localStorage.getItem('thisWeek'));
   }
   buildClientList();
+
   buildThisWeekHoursList();
 };
 
@@ -178,4 +199,4 @@ navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
 });
 
-fetchClientListFromLocalStorage();
+// fetchClientListFromLocalStorage();
