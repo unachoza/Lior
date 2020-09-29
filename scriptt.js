@@ -84,7 +84,7 @@ const addHoursToClient = (e) => {
   // access hours from obj, allow add hours add 30min button to function
   // add thier value to current value and update obj
   // add updatedobj to localstorage this week arrayName
-  //re render dom BUILD THIS WEEK HOURS
+  //re render dom BUILD THIS WEEK HIU
 };
 
 const buildThisWeekHoursList = () => {
