@@ -141,11 +141,14 @@ const addClient = () => {
 const fetchClientListFromLocalStorage = () => {
   console.log('running');
   if (localStorage.getItem('clients')) {
-    console.log(true, 'totally');
     savedClientList = JSON.parse(localStorage.getItem('clients'));
     console.log('in localStorage this list needs to appear', savedClientList);
   }
+  if (localStorage.getItem('thisWeek')) {
+    savedClientHours = JSON.parse(localStorage.getItem('thisWeek'));
+  }
   buildClientList();
+  buildThisWeekHoursList();
 };
 
 addClientForm.addEventListener('submit', addClient);
