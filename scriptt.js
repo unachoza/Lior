@@ -23,7 +23,7 @@ const clientContainer = document.getElementById('client-container');
 const modalClientList = document.getElementById('modal-content-list');
 
 //Client Variables
-let savedClientList;
+let savedClientList = [];
 
 // const openModal = () => {
 //   modalElement.classList.add('open-modal');
@@ -42,8 +42,11 @@ const showClientList = (savedClientList, e) => {
     const { clientName } = client;
     const clientListName = document.createElement('div');
     clientListName.classList.add('item');
-    clientListName.textContent = clientName;
+    var node = document.createTextNode(clientName);
+    clientListName.appendChild(node);
+    clientListName.addEventListener('click', (e) => console.log(e.target));
     modalClientList.appendChild(clientListName);
+    console.log(modalClientList);
   });
 };
 const selectClient = () => {
@@ -58,11 +61,9 @@ addClientButton.addEventListener('click', (e) => {
 });
 
 const buildClientList = () => {
-  console.log('who are the', savedClientList);
   clientContainer.textContent = '';
   savedClientList
     ? savedClientList.forEach((client) => {
-        console.log(client);
         const { clientName } = client;
         const clientItem = document.createElement('div');
         clientItem.classList.add('item');

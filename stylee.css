@@ -308,6 +308,7 @@ section#contact {
 
 .item {
   margin: 4px 8px;
+  width: 90px;
   padding: 10px;
   height: fit-content;
   background-color: var(--background-opacity);
