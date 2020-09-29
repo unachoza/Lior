@@ -50,9 +50,10 @@ const showClientList = (savedClientList, e) => {
 };
 const selectClient = (e) => {
   //from local storagesavedClientHours
+  console.log(e);
   savedClientHours;
   let thisWeekClientName = e.target.outerText;
-  console.log(thisWeekClientName, savedClientList[0].clientName);
+  console.log(thisWeekClientName.outerText, savedClientList[0].clientName);
   console.log(thisWeekHoursList.attributes[1]);
   //need to check array in local storage too
   if (thisWeekHoursList.attributes[1].childNodes.length > 1) {
@@ -68,7 +69,7 @@ const selectClient = (e) => {
     localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
   }
   buildThisWeekHoursList();
-  console.log;
+  hidePopup(modalElementClientList);
   //check if NOT alredy rendered client
   // thisWeekHoursList
   // if not create element to append to this weeks hours
