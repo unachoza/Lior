@@ -92,7 +92,8 @@ const selectClient = (e) => {
 const addHoursToClient = (e) => {
   // let selectedClient = thisWeekHoursList.childNodes[0].textContent
   let selected = e.target.innerHTML;
-  console.log('this client was clicked on', selected);
+  let selectedElm = e.target;
+  console.log('this client was clicked on', selected, selectedElm);
   console.log(e);
   e.target.classList.add('selected-item');
   //change css to commiunicate that client was selected
@@ -109,11 +110,23 @@ const buildThisWeekHoursList = () => {
   let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
   console.log('this is the list for this week', thisWeekList);
   thisWeekList
-    ? thisWeekList.forEach((thisWeek) => {
+    ? thisWeekList.forEach((thisWeek, i) => {
+        console.log(thisWeek.id);
         const { thisWeekClientName, hours } = thisWeek;
+
         const thisWeekClientItem = document.createElement('div');
+        thisWeekClientItem.setAttribute('id', `clientHours${i}`);
+        console.log(thisWeekClientItem.id, 'works');
+
+        let value = thisWeekClientItem.value;
+
+        console.log(value);
+        value = 30;
+        console.log(value);
+        console.log(thisWeekClientName);
         thisWeekClientItem.classList.add('item');
-        thisWeekClientItem.textContent = thisWeek.thisWeekClientName;
+        thisWeekClientItem.textContent = thisWeekClientName;
+        // thisWeekClientItem.value.add(hours);
         thisWeekClientItem.addEventListener('click', (e) => addHoursToClient(e));
         thisWeekHoursList.appendChild(thisWeekClientItem);
       })
@@ -166,6 +179,7 @@ const fetchClientListFromLocalStorage = () => {
   }
   if (localStorage.getItem('thisWeek')) {
     savedClientHours = JSON.parse(localStorage.getItem('thisWeek'));
+    console.log('in localStorage this list needs to appear', savedClientHours);
   }
   buildClientList();
 
