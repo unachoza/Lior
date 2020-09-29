@@ -50,7 +50,6 @@ const showClientList = (savedClientList, e) => {
 };
 const selectClient = (e) => {
   //from local storagesavedClientHours
-  console.log(e);
   savedClientHours;
   let thisWeekClientName = e.target.outerText;
   console.log(thisWeekClientName.outerText, savedClientList[0].clientName);
@@ -76,6 +75,18 @@ const selectClient = (e) => {
   //if so access their hours
 };
 
+const addHoursToClient = (e) => {
+  // let selectedClient = thisWeekHoursList.childNodes[0].textContent
+  let selected = e.target.innerHTML;
+  console.log('this client was clicked on', selected);
+  //change css to commiunicate that client was selected
+  //find client in localstorage array  thisWeek.thisWeekClientName and save the entire obj
+  // access hours from obj, allow add hours add 30min button to function
+  // add thier value to current value and update obj
+  // add updatedobj to localstorage this week arrayName
+  //re render dom BUILD THIS WEEK HOURS
+};
+
 const buildThisWeekHoursList = () => {
   let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
   console.log('this is the list for this week', thisWeekList);
@@ -84,7 +95,8 @@ const buildThisWeekHoursList = () => {
         const { thisWeekClientName, hours } = thisWeek;
         const thisWeekClientItem = document.createElement('div');
         thisWeekClientItem.classList.add('item');
-        thisWeekClientItem.textContent = thisWeek.thisWeekClientName + thisWeek.hours;
+        thisWeekClientItem.textContent = thisWeek.thisWeekClientName;
+        thisWeekClientItem.addEventListener('click', (e) => addHoursToClient(e));
         thisWeekHoursList.appendChild(thisWeekClientItem);
       })
     : null;

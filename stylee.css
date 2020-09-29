@@ -17,7 +17,6 @@ html {
   --primary-color: white;
   --secondary-color: black;
   --background: #f8f8f8de;
-  --background-url: url('https://res.cloudinary.com/dh41vh9dx/image/upload/v1597158896/recompressedgar-chaparro-.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -242,8 +241,7 @@ section {
 }
 
 section#home {
-  margin-top: 65px;
-  background-image: url('https://res.cloudinary.com/dh41vh9dx/image/upload/v1597158896/recompressedgar-chaparro-.jpg');
+  background-image: url('lifeIsBetterInTheMountains.jpg');
   background-size: cover;
   background-position: center center;
 }
