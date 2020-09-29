@@ -37,9 +37,8 @@ const hidePopup = (modalInput) => {
   modalInput.classList.add('hide');
   modalInput.classList.remove('popup-open');
 };
-const showClientList = (savedClientList) => {
+const showClientList = (savedClientList, e) => {
   savedClientList.forEach((client) => {
-    console.log(client);
     const { clientName } = client;
     const clientListName = document.createElement('div');
     clientListName.classList.add('item');
@@ -47,9 +46,13 @@ const showClientList = (savedClientList) => {
     modalClientList.appendChild(clientListName);
   });
 };
+const selectClient = () => {
+  //append this
+  console.log('stuff');
+};
 
 newClientButton.addEventListener('click', () => showPopup(modalElement));
-addClientButton.addEventListener('click', () => {
+addClientButton.addEventListener('click', (e) => {
   showPopup(modalElementClientList);
   showClientList(savedClientList);
 });
@@ -76,9 +79,9 @@ const addClient = (e) => {
   const newClient = {
     clientName: nameValue,
   };
-  clients.push(newClient);
-  console.log(clients);
-  localStorage.setItem('clients', JSON.stringify(clients));
+  savedClientList.push(newClient);
+  console.log(savedClientList);
+  localStorage.setItem('clients', JSON.stringify(savedClientList));
   fetchClientListFromLocalStorage();
   addClientForm.reset();
   clientNameElement.focus();
@@ -86,7 +89,12 @@ const addClient = (e) => {
 };
 
 const fetchClientListFromLocalStorage = () => {
-  if (localStorage.getItem('clients')) savedClientList = JSON.parse(localStorage.getItem('clients'));
+  console.log('running');
+  if (localStorage.getItem('clients')) {
+    console.log(true, 'totally');
+    savedClientList = JSON.parse(localStorage.getItem('clients'));
+    console.log('in localStorage this list needs to appear', savedClientList);
+  }
   buildClientList();
 };
 
