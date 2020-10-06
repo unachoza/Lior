@@ -122,6 +122,7 @@ const addHour = (selectedClientData) => {
   console.log(selectedData);
   selectedData.hours += 1;
   console.log(selectedData, selectedClientData);
+  localStorage.setItem('thisWeek', JSON.stringify(selectedClientData));
 };
 // selectedClientData.hour + hour.value;
 const addThirty = (selectedClientData) => {
