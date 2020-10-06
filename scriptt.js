@@ -104,25 +104,36 @@ const addSelectedstyle = (element) => {
   console.log(select);
 };
 const addHoursToClient = (e) => {
-  let selectedElm = e.target.textContent;
+  console.log(e.target.attributes[2].nodeValue);
+  let selectedElm = e.target.attributes[2].nodeValue;
+
   e.target.classList.add('selected-item');
   hour.classList.add('selected-item');
   thirtyMin.classList.add('selected-item');
+  console.log(savedClientHours, selectedElm);
   //change css to commiunicate that client was selected
   let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);
   console.log(selectedClientData);
-  return selectedClientData;
-  //re render dom BUILD THIS WEEK HIU
+  return selectedClientData, selectedElm;
+  // re render dom BUILD THIS WEEK HIU
 };
 // answer = addHoursToClient(e);
 
-const addHour = (selectedClientData) => {
-  let clientAddTo = document.getElementsByClassName('selected-item')[0].textContent;
+const addHour = (selectedClientData, selectedElm) => {
+  console.log(selectedClientData, selectedElm);
+  let clientAddTo = document.getElementsByClassName('selected-item')[0].attributes.name.value;
+  console.log(clientAddTo, 'gragged');
   let selectedData = savedClientHours.find((client) => client.thisWeekClientName === clientAddTo);
   console.log(selectedData);
   selectedData.hours += 1;
   console.log(selectedData, selectedClientData);
   localStorage.setItem('thisWeek', JSON.stringify(selectedClientData));
+  let elms = document.querySelectorAll('.selected-item');
+  console.log(elms, 'these sparkel');
+  [].forEach.call(elms, function (el) {
+    el.classList.remove('selected-item');
+  });
+  buildThisWeekHoursList();
 };
 // selectedClientData.hour + hour.value;
 const addThirty = (selectedClientData) => {
@@ -138,8 +149,9 @@ const buildThisWeekHoursList = () => {
       const thisWeekClientItem = document.createElement('div');
       thisWeekClientItem.setAttribute('id', `clientHours-${i}`);
       thisWeekClientItem.setAttribute('value', hours);
+      thisWeekClientItem.setAttribute('name', thisWeekClientName);
       thisWeekClientItem.classList.add('item');
-      thisWeekClientItem.textContent = thisWeekClientName;
+      thisWeekClientItem.textContent = `${thisWeekClientName}, Hours : ${hours}`;
       console.log(thisWeekClientItem.textContent, 'text content');
       thisWeekClientItem.addEventListener('click', (e) => addHoursToClient(e));
       // () => addHoursToClient(e)
