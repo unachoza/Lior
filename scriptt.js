@@ -69,34 +69,39 @@ const superSelector = (e) => {
 const selectClient = (e, savedClientHours) => {
   if (localStorage.getItem('thisWeek')) {
     let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
-    console.log(savedhours, 'inside selectClient');
-    console.log(savedhours[0].thisWeekClientName, e.target.textContent);
     let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
+    console.log(savedhours[0].thisWeekClientName === e.target.textContent);
     if (clientExisits.length) {
       console.log('already here let us move on');
+    } else {
+      console.log('need to add');
+      let selectedClient = {
+        thisWeekClientName: e.target.outerText,
+        hours: 0,
+      };
+      savedClientHours.push(selectedClient);
+      localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
+      buildThisWeekHoursList();
     }
-  } else {
-    console.log('need to add');
-    let thisWeekClientName = e.target.outerText;
-    let selectedClient = {
-      thisWeekClientName,
-      hours: 0,
-    };
-    //array that is in local storage
-    console.log(savedClientHours);
-    savedClientHours.push(selectedClient);
-    localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
-    buildThisWeekHoursList();
+    hidePopup(modalElementClientList);
+    // if not create element to append to this weeks hours
+    //if so access their hours
   }
-  hidePopup(modalElementClientList);
+};
+const selectClientToAddHours = (e) => {
+  console.log(e.target);
+  addSelectedstyle(e.target);
 
-  //check if NOT alredy rendered client
-  // thisWeekHoursList
-  // if not create element to append to this weeks hours
-  //if so access their hours
+  //select client add highlighted client styles
+  //make add 30 and add hr button available (remove disable)
+  //grab this week client hours  and add selected buttons time
+  //update local storage
+  // able to deselect client and not add hours
 };
 const addSelectedstyle = (element) => {
   element.classList.add('selected-item');
+  let select = document.getElementsByClassName('selected-item');
+  console.log(select);
 };
 const addHoursToClient = (e) => {
   let selectedElm = e.target.textContent;
@@ -105,14 +110,23 @@ const addHoursToClient = (e) => {
   thirtyMin.classList.add('selected-item');
   //change css to commiunicate that client was selected
   let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);
+  console.log(selectedClientData);
   return selectedClientData;
   //re render dom BUILD THIS WEEK HIU
 };
 // answer = addHoursToClient(e);
 
-const addHour = (answer) => console.log(selectedClientData, 'hour');
+const addHour = (selectedClientData) => {
+  let clientAddTo = document.getElementsByClassName('selected-item')[0].textContent;
+  let selectedData = savedClientHours.find((client) => client.thisWeekClientName === clientAddTo);
+  console.log(selectedData);
+  selectedData.hours += 1;
+  console.log(selectedData, selectedClientData);
+};
 // selectedClientData.hour + hour.value;
-const addThirty = (selectedClientData) => selectedClientData.hour + thirtyMin.value;
+const addThirty = (selectedClientData) => {
+  selectedClientData[0].hours += 0.5;
+};
 
 const buildThisWeekHoursList = () => {
   thisWeekHoursList.textContent = '';
@@ -126,7 +140,7 @@ const buildThisWeekHoursList = () => {
       thisWeekClientItem.classList.add('item');
       thisWeekClientItem.textContent = thisWeekClientName;
       console.log(thisWeekClientItem.textContent, 'text content');
-      thisWeekClientItem.addEventListener('click', console.log(thisWeekClientItem.textContent));
+      thisWeekClientItem.addEventListener('click', (e) => addHoursToClient(e));
       // () => addHoursToClient(e)
       thisWeekHoursList.appendChild(thisWeekClientItem);
     });
