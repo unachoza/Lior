@@ -24,10 +24,18 @@ const modalClientList = document.getElementById('modal-content-list');
 
 // Week Hours DOM
 const thisWeekHoursList = document.getElementById('hours-container');
+const hour = document.getElementById('hour');
+hour.setAttribute('value', 1);
+hour.addEventListener('click', () => addHour(savedClientHours));
+const thirtyMin = document.getElementById('min');
+hour.addEventListener('click', (e) => addThirty(savedClientHours));
+thirtyMin.setAttribute('value', 0.5);
 
-//Client Variables
+//Initializing Variables
 let savedClientList = [];
 let savedClientHours = [];
+let answer;
+let theSelectedClient = answer;
 
 const showPopup = (modalInput) => {
   modalInput.classList.remove('hide');
@@ -37,110 +45,99 @@ const hidePopup = (modalInput) => {
   modalInput.classList.add('hide');
   modalInput.classList.remove('popup-open');
 };
-const showClientList = (savedClientList, e) => {
-  console.log('clicked add client button and running showClientList');
-  console.log(
-    document.getElementById('modal-content-list').childNodes.length,
-    document.getElementById('client-container').childNodes.length
-  );
+const showClientList = (savedClientList) => {
   //if not equal then run the list
-  if (
-    document.getElementById('modal-content-list').childNodes.length !==
-    document.getElementById('client-container').childNodes.length
-  ) {
-    console.log('they are not equal');
-    savedClientList.forEach((client) => {
-      const { clientName } = client;
-      const clientListName = document.createElement('div');
-      clientListName.classList.add('item');
-      var node = document.createTextNode(clientName);
-      clientListName.appendChild(node);
-      clientListName.addEventListener('click', (e) => selectClient(e));
-      modalClientList.appendChild(clientListName);
-    });
-  } else {
-    console.log('they are equal');
+  {
+    modalClientList.childNodes.length !== clientContainer.childNodes.length
+      ? savedClientList.forEach((client) => {
+          const { clientName } = client;
+          const clientListName = document.createElement('div');
+          clientListName.classList.add('item');
+          // let node = document.createTextNode(clientName);
+          clientListName.appendChild(document.createTextNode(clientName));
+          clientListName.addEventListener('click', (e) => selectClient(e, savedClientHours));
+          modalClientList.appendChild(clientListName);
+        })
+      : console.log('show client list:  equal');
   }
 };
-const selectClient = (e) => {
-  //from local storagesavedClientHours
-  savedClientHours;
-  let thisWeekClientName = e.target.outerText;
-  console.log(thisWeekClientName.outerText, savedClientList[0].clientName);
-  console.log(thisWeekHoursList.attributes[1]);
-  //need to check array in local storage too
-  if (thisWeekHoursList.attributes[1].childNodes.length > 1) {
-    console.log(true, 'length exisits');
+const superSelector = (e) => {
+  let thisClickedVariable = e.target;
+  return thisClickedVariable;
+};
+//try to make for many
+const selectClient = (e, savedClientHours) => {
+  console.log('selectClient func');
+  let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
+  console.log(savedhours, 'inside selectClient');
+  console.log(savedhours[0].thisWeekClientName, e.target.textContent);
+  let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
+  if (clientExisits.length) {
+    console.log('already here let us move on');
   } else {
+    console.log('need to add');
+    let thisWeekClientName = e.target.outerText;
     let selectedClient = {
       thisWeekClientName,
       hours: 0,
     };
-
     //array that is in local storage
     savedClientHours.push(selectedClient);
     localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
+    buildThisWeekHoursList();
   }
-  buildThisWeekHoursList();
   hidePopup(modalElementClientList);
+
   //check if NOT alredy rendered client
   // thisWeekHoursList
   // if not create element to append to this weeks hours
   //if so access their hours
 };
-
+const addSelectedstyle = (element) => {
+  element.classList.add('selected-item');
+};
 const addHoursToClient = (e) => {
-  // let selectedClient = thisWeekHoursList.childNodes[0].textContent
-  let selected = e.target.innerHTML;
-  let selectedElm = e.target;
-  console.log('this client was clicked on', selected, selectedElm);
-  console.log(e);
+  let selectedElm = e.target.textContent;
   e.target.classList.add('selected-item');
+  hour.classList.add('selected-item');
+  thirtyMin.classList.add('selected-item');
   //change css to commiunicate that client was selected
-  //find client in localstorage array  thisWeek.thisWeekClientName and save the entire obj
-  // access hours from obj, allow add hours add 30min button to function
-  // add thier value to current value and update obj
-  // add updatedobj to localstorage this week arrayName
+  let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);
+  return selectedClientData;
   //re render dom BUILD THIS WEEK HIU
 };
+// answer = addHoursToClient(e);
+
+const addHour = (answer) => console.log(selectedClientData, 'hour');
+// selectedClientData.hour + hour.value;
+const addThirty = (selectedClientData) => selectedClientData.hour + thirtyMin.value;
 
 const buildThisWeekHoursList = () => {
-  console.log('build hours');
   thisWeekHoursList.textContent = '';
   let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
-  console.log('this is the list for this week', thisWeekList);
   thisWeekList
     ? thisWeekList.forEach((thisWeek, i) => {
-        console.log(thisWeek.id);
         const { thisWeekClientName, hours } = thisWeek;
-
         const thisWeekClientItem = document.createElement('div');
-        thisWeekClientItem.setAttribute('id', `clientHours${i}`);
-        console.log(thisWeekClientItem.id, 'works');
-
-        let value = thisWeekClientItem.value;
-
-        console.log(value);
-        value = 30;
-        console.log(value);
-        console.log(thisWeekClientName);
+        thisWeekClientItem.setAttribute('id', `clientHours-${i}`);
+        thisWeekClientItem.setAttribute('value', hours);
         thisWeekClientItem.classList.add('item');
         thisWeekClientItem.textContent = thisWeekClientName;
-        // thisWeekClientItem.value.add(hours);
-        thisWeekClientItem.addEventListener('click', (e) => addHoursToClient(e));
+        console.log(thisWeekClientItem.textContent, 'text content');
+        thisWeekClientItem.addEventListener('click', console.log(thisWeekClientItem.textContent));
+        // () => addHoursToClient(e)
         thisWeekHoursList.appendChild(thisWeekClientItem);
       })
     : null;
 };
 
 newClientButton.addEventListener('click', () => showPopup(modalElement));
-addClientButton.addEventListener('click', (e) => {
+addClientButton.addEventListener('click', () => {
   showPopup(modalElementClientList);
   showClientList(savedClientList);
 });
 
 const buildClientList = () => {
-  console.log('build clients');
   clientContainer.textContent = '';
   savedClientList
     ? savedClientList.forEach((client) => {
@@ -162,9 +159,7 @@ const addClient = () => {
     clientName: nameValue,
   };
   savedClientList.push(newClient);
-  console.log(savedClientList);
   localStorage.setItem('clients', JSON.stringify(savedClientList));
-  // fetchClientListFromLocalStorage();
   buildClientList();
   addClientForm.reset();
   clientNameElement.focus();
@@ -172,21 +167,11 @@ const addClient = () => {
 };
 
 const fetchClientListFromLocalStorage = () => {
-  console.log('running');
-  if (localStorage.getItem('clients')) {
-    savedClientList = JSON.parse(localStorage.getItem('clients'));
-    console.log('in localStorage this list needs to appear', savedClientList);
-  }
-  if (localStorage.getItem('thisWeek')) {
-    savedClientHours = JSON.parse(localStorage.getItem('thisWeek'));
-    console.log('in localStorage this list needs to appear', savedClientHours);
-  }
+  if (localStorage.getItem('clients')) savedClientList = JSON.parse(localStorage.getItem('clients'));
+  if (localStorage.getItem('thisWeek')) savedClientHours = JSON.parse(localStorage.getItem('thisWeek'));
   buildClientList();
-
   buildThisWeekHoursList();
 };
-
-addClientForm.addEventListener('submit', addClient);
 
 ///////NAVIGATION JS
 const navAnimation = (direction1, direction2) => {
@@ -196,7 +181,6 @@ const navAnimation = (direction1, direction2) => {
 };
 
 const toggleNav = () => {
-  console.log('clike');
   menuBars.classList.toggle('change');
   overlay.classList.toggle('overlay-active');
   if (overlay.classList.contains('overlay-active')) {
@@ -207,7 +191,7 @@ const toggleNav = () => {
     navAnimation('in', 'out');
   }
 };
-
+addClientForm.addEventListener('submit', addClient);
 menuBars.addEventListener('click', toggleNav);
 navItems.forEach((nav) => {
   nav.addEventListener('click', toggleNav);
