@@ -67,13 +67,14 @@ const superSelector = (e) => {
 };
 //try to make for many
 const selectClient = (e, savedClientHours) => {
-  console.log('selectClient func');
-  let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
-  console.log(savedhours, 'inside selectClient');
-  console.log(savedhours[0].thisWeekClientName, e.target.textContent);
-  let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
-  if (clientExisits.length) {
-    console.log('already here let us move on');
+  if (localStorage.getItem('thisWeek')) {
+    let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
+    console.log(savedhours, 'inside selectClient');
+    console.log(savedhours[0].thisWeekClientName, e.target.textContent);
+    let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
+    if (clientExisits.length) {
+      console.log('already here let us move on');
+    }
   } else {
     console.log('need to add');
     let thisWeekClientName = e.target.outerText;
@@ -82,6 +83,7 @@ const selectClient = (e, savedClientHours) => {
       hours: 0,
     };
     //array that is in local storage
+    console.log(savedClientHours);
     savedClientHours.push(selectedClient);
     localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
     buildThisWeekHoursList();
@@ -114,21 +116,21 @@ const addThirty = (selectedClientData) => selectedClientData.hour + thirtyMin.va
 
 const buildThisWeekHoursList = () => {
   thisWeekHoursList.textContent = '';
-  let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
-  thisWeekList
-    ? thisWeekList.forEach((thisWeek, i) => {
-        const { thisWeekClientName, hours } = thisWeek;
-        const thisWeekClientItem = document.createElement('div');
-        thisWeekClientItem.setAttribute('id', `clientHours-${i}`);
-        thisWeekClientItem.setAttribute('value', hours);
-        thisWeekClientItem.classList.add('item');
-        thisWeekClientItem.textContent = thisWeekClientName;
-        console.log(thisWeekClientItem.textContent, 'text content');
-        thisWeekClientItem.addEventListener('click', console.log(thisWeekClientItem.textContent));
-        // () => addHoursToClient(e)
-        thisWeekHoursList.appendChild(thisWeekClientItem);
-      })
-    : null;
+  if (localStorage.getItem('thisWeek')) {
+    let thisWeekList = JSON.parse(localStorage.getItem('thisWeek'));
+    thisWeekList.forEach((thisWeek, i) => {
+      const { thisWeekClientName, hours } = thisWeek;
+      const thisWeekClientItem = document.createElement('div');
+      thisWeekClientItem.setAttribute('id', `clientHours-${i}`);
+      thisWeekClientItem.setAttribute('value', hours);
+      thisWeekClientItem.classList.add('item');
+      thisWeekClientItem.textContent = thisWeekClientName;
+      console.log(thisWeekClientItem.textContent, 'text content');
+      thisWeekClientItem.addEventListener('click', console.log(thisWeekClientItem.textContent));
+      // () => addHoursToClient(e)
+      thisWeekHoursList.appendChild(thisWeekClientItem);
+    });
+  }
 };
 
 newClientButton.addEventListener('click', () => showPopup(modalElement));
