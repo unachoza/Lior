@@ -73,7 +73,19 @@ const showClientListToBeAddedToThisWeek = (savedClientList) => {
 };
 
 const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
+  console.log('heeellllooo');
+  if (!localStorage.getItem('thisWeek')) {
+    console.log('there was nothing');
+    let selectedClient = {
+      thisWeekClientName: e.target.outerText,
+      hours: 0,
+    };
+    savedClientHours.push(selectedClient);
+    localStorage.setItem('thisWeek', JSON.stringify(savedClientHours));
+    buildThisWeekHoursList();
+  }
   if (localStorage.getItem('thisWeek')) {
+    console.log('yes');
     let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
     let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
     console.log(savedhours[0].thisWeekClientName === e.target.textContent);
@@ -93,6 +105,7 @@ const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
     // if not create element to append to this weeks hours
     //if so access their hours
   }
+  console.log('no');
 };
 //part one: grab selected client from DOM, grab that clients data from local storage to add to hours
 const addHoursToClientThisWeek = (e) => {
@@ -141,7 +154,16 @@ const buildThisWeekHoursList = () => {
       thisWeekClientItem.addEventListener('click', (e) => addHoursToClientThisWeek(e));
       thisWeekHoursList.appendChild(thisWeekClientItem);
     });
+    const totalItem = document.createElement('div');
+    totalItem.classList.add('item');
+    totalItem.textContent = `Total Hours : ${totalHoursThisWeek(thisWeekList)}`;
+    thisWeekHoursList.appendChild(totalItem);
   }
+};
+const totalHoursThisWeek = (array) => {
+  let total = 0;
+  array.forEach((value) => (total += value.hours));
+  return total;
 };
 
 newClientButton.addEventListener('click', () => showPopup(modalElement));
