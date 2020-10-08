@@ -299,12 +299,11 @@ section#contact {
 
 .column-container {
   display: flex;
-  flex-direction: column;
-  position: relative;
-  margin: 0 auto;
-  width: 96vw;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  justify-content: space-evenly;
+  width: 100vw;
   height: 77vh;
-  display: flex;
 }
 /* ITEMS IN COLUMNS */
 .item-list {
@@ -314,7 +313,7 @@ section#contact {
 .item {
   margin: 4px 8px;
   width: fit-content;
-  min-width: 100px;
+  min-width: 125px;
   padding: 10px;
   height: fit-content;
   background-color: var(--background-opacity);
