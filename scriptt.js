@@ -1,3 +1,6 @@
+//Initializing Variables
+let savedClientList = [];
+let savedClientHours = [];
 let clients = [];
 
 ////NAVIGATION DOM
@@ -40,10 +43,6 @@ const addHoursButtonsFunctionality = (button) => {
   button.setAttribute('value', 1);
   button.addEventListener('click', (e) => addThirty(savedClientHours));
 };
-
-//Initializing Variables
-let savedClientList = [];
-let savedClientHours = [];
 
 const showPopup = (modalInput) => {
   modalInput.classList.remove('hide');
@@ -108,17 +107,42 @@ const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
   console.log('no');
 };
 //part one: grab selected client from DOM, grab that clients data from local storage to add to hours
+
+const deselect = () => {
+  window.addEventListener('click', (e) => {
+    console.log(e.target);
+    e.target === selected
+      ? [thisWeelTarget, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) =>
+          element.classList.add('selected-item')
+        )
+      : false;
+  });
+};
+window.addEventListener('click', (e) => {
+  console.log(window, 'this is the window');
+  console.log(e.target.className, 'thi is target');
+  let selected = document.querySelectorAll('.selected-item');
+  // [].forEach.call(elms, (el) => el.classList.remove('selected-item'));
+  e.target.className === 'column-container'
+    ? [].forEach.call(selected, (el) => el.classList.remove('selected-item'))
+    : false;
+});
+//   console.log(window, 'this is the window');
+//   console.log(e.target, 'thi is target');
+//   let selected = document.getElementsByClassName('selected-item');
+//   e.target === selected ? [].forEach.call(selected, (element) => element.classList.remove('selected-item')) : false;
+// });
 const addHoursToClientThisWeek = (e) => {
   console.log(e.target.attributes[2].nodeValue); //grab  name of client from local storage object
-  let target = e.target; //the entire node
+  let thisWeelTarget = e.target; //the entire node
   let selectedElm = e.target.attributes[2].nodeValue;
-  [target, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) => element.classList.add('selected-item'));
+  [thisWeelTarget, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) => element.classList.add('selected-item'));
   [].forEach.call(timeButtons, (el) => el.classList.remove('hide'));
   console.log(savedClientHours, selectedElm); //entire localstorage /// selectedNode
   let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);
   console.log(selectedClientData);
   return selectedClientData, selectedElm;
-  // re render dom BUILD THIS WEEK HOURS
+  deselect();
 };
 
 const addHour = (selectedClientData, e) => {
