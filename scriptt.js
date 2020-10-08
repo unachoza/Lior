@@ -24,11 +24,13 @@ const modalClientList = document.getElementById('modal-content-list');
 
 // Week Hours DOM
 const thisWeekHoursList = document.getElementById('hours-container');
-const hour = document.getElementById('hour');
-hour.setAttribute('value', 1);
-hour.addEventListener('click', () => addHour(savedClientHours));
-const thirtyMin = document.getElementById('min');
-hour.addEventListener('click', (e) => addThirty(savedClientHours));
+const timeButtons = document.getElementsByClassName('add-time-buttons');
+const sixtyMin = document.getElementById('60min');
+const fourtyfiveMin = document.getElementById('45min');
+const thirtyMin = document.getElementById('30min');
+sixtyMin.setAttribute('value', 1);
+sixtyMin.addEventListener('click', () => addHour(savedClientHours));
+sixtyMin.addEventListener('click', (e) => addThirty(savedClientHours));
 thirtyMin.setAttribute('value', 0.5);
 
 //Initializing Variables
@@ -65,7 +67,7 @@ const superSelector = (e) => {
   let thisClickedVariable = e.target;
   return thisClickedVariable;
 };
-//try to make for many
+
 const selectClient = (e, savedClientHours) => {
   if (localStorage.getItem('thisWeek')) {
     let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
@@ -88,6 +90,7 @@ const selectClient = (e, savedClientHours) => {
     //if so access their hours
   }
 };
+///////// not being used currentlly////////
 const selectClientToAddHours = (e) => {
   console.log(e.target);
   addSelectedstyle(e.target);
@@ -98,6 +101,8 @@ const selectClientToAddHours = (e) => {
   //update local storage
   // able to deselect client and not add hours
 };
+
+///////// not being used currentlly////////
 const addSelectedstyle = (element) => {
   element.classList.add('selected-item');
   let select = document.getElementsByClassName('selected-item');
@@ -105,11 +110,14 @@ const addSelectedstyle = (element) => {
 };
 const addHoursToClient = (e) => {
   console.log(e.target.attributes[2].nodeValue);
+  let target = e.target;
   let selectedElm = e.target.attributes[2].nodeValue;
+  [target, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) => element.classList.add('selected-item'));
+  [].forEach.call(timeButtons, function (el) {
+    el.classList.remove('hide');
+  });
 
-  e.target.classList.add('selected-item');
-  hour.classList.add('selected-item');
-  thirtyMin.classList.add('selected-item');
+  /////////loop here
   console.log(savedClientHours, selectedElm);
   //change css to commiunicate that client was selected
   let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);

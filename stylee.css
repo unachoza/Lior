@@ -305,6 +305,10 @@ section#contact {
   width: 100vw;
   height: 77vh;
 }
+#hours-container {
+  flex-direction: column;
+  justify-content: normal;
+}
 /* ITEMS IN COLUMNS */
 .item-list {
   min-height: 50px;
