@@ -218,3 +218,4 @@ navItems.forEach((nav) => {
 });
 
 // fetchClientListFromLocalStorage();
+const makeHashTableForLocalStorage = () => {};
