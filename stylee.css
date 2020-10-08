@@ -241,9 +241,7 @@ section {
 }
 
 section#home {
-  background-image: url('lifeIsBetterInTheMountains.jpg');
-  background-size: cover;
-  background-position: center center;
+  background-color: black;
 }
 .title {
   position: absolute;
@@ -255,6 +253,15 @@ section#home {
   padding-bottom: 5px;
   color: var(--primaryColor);
   border-bottom: 1px solid var(--primaryColor);
+}
+.home-page-text {
+  font-size: 50px;
+  color: white;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 section#clients {
