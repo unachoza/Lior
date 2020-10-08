@@ -53,28 +53,24 @@ const hidePopup = (modalInput) => {
   modalInput.classList.remove('popup-open');
 };
 const showClientListToBeAddedToThisWeek = (savedClientList) => {
-  //if not equal then run the list
   {
     modalClientList.childNodes.length !== clientContainer.childNodes.length
       ? savedClientList.forEach((client) => {
           const { clientName } = client;
           const clientListName = document.createElement('div');
           clientListName.classList.add('item');
-          // let node = document.createTextNode(clientName);
           clientListName.appendChild(document.createTextNode(clientName));
           clientListName.addEventListener('click', (e) =>
             selectClientFromPopUpToBeAddedToThisWeekHours(e, savedClientHours)
           );
           modalClientList.appendChild(clientListName);
         })
-      : console.log('show client list:  equal');
+      : null;
   }
 };
 
 const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
-  console.log('heeellllooo');
   if (!localStorage.getItem('thisWeek')) {
-    console.log('there was nothing');
     let selectedClient = {
       thisWeekClientName: e.target.outerText,
       hours: 0,
@@ -84,14 +80,10 @@ const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
     buildThisWeekHoursList();
   }
   if (localStorage.getItem('thisWeek')) {
-    console.log('yes');
     let savedhours = JSON.parse(localStorage.getItem('thisWeek'));
     let clientExisits = savedhours.filter((saved) => saved.thisWeekClientName === e.target.textContent);
-    console.log(savedhours[0].thisWeekClientName === e.target.textContent);
     if (clientExisits.length) {
-      console.log('already here let us move on');
     } else {
-      console.log('need to add');
       let selectedClient = {
         thisWeekClientName: e.target.outerText,
         hours: 0,
@@ -101,55 +93,28 @@ const selectClientFromPopUpToBeAddedToThisWeekHours = (e, savedClientHours) => {
       buildThisWeekHoursList();
     }
     hidePopup(modalElementClientList);
-    // if not create element to append to this weeks hours
-    //if so access their hours
   }
-  console.log('no');
 };
-//part one: grab selected client from DOM, grab that clients data from local storage to add to hours
 
-const deselect = () => {
-  window.addEventListener('click', (e) => {
-    console.log(e.target);
-    e.target === selected
-      ? [thisWeelTarget, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) =>
-          element.classList.add('selected-item')
-        )
-      : false;
-  });
-};
 window.addEventListener('click', (e) => {
-  console.log(window, 'this is the window');
-  console.log(e.target.className, 'thi is target');
   let selected = document.querySelectorAll('.selected-item');
-  // [].forEach.call(elms, (el) => el.classList.remove('selected-item'));
   e.target.className === 'column-container'
     ? [].forEach.call(selected, (el) => el.classList.remove('selected-item'))
     : false;
 });
-//   console.log(window, 'this is the window');
-//   console.log(e.target, 'thi is target');
-//   let selected = document.getElementsByClassName('selected-item');
-//   e.target === selected ? [].forEach.call(selected, (element) => element.classList.remove('selected-item')) : false;
-// });
+
 const addHoursToClientThisWeek = (e) => {
-  console.log(e.target.attributes[2].nodeValue); //grab  name of client from local storage object
   let thisWeelTarget = e.target; //the entire node
-  let selectedElm = e.target.attributes[2].nodeValue;
+  let selectedElm = e.target.attributes[2].nodeValue; //grab  name of client from local storage object
   [thisWeelTarget, sixtyMin, fourtyfiveMin, thirtyMin].forEach((element) => element.classList.add('selected-item'));
   [].forEach.call(timeButtons, (el) => el.classList.remove('hide'));
-  console.log(savedClientHours, selectedElm); //entire localstorage /// selectedNode
   let selectedClientData = savedClientHours.find((client) => client.thisWeekClientName === selectedElm);
-  console.log(selectedClientData);
   return selectedClientData, selectedElm;
-  deselect();
 };
 
 const addHour = (selectedClientData, e) => {
   let buttonValue = e.target.attributes[2].nodeValue;
   buttonValue = Number(buttonValue);
-  console.log(buttonValue);
-  console.log(typeof buttonValue);
   let clientAddTo = document.getElementsByClassName('selected-item')[0].attributes.name.value;
   let selectedData = savedClientHours.find((client) => client.thisWeekClientName === clientAddTo);
   selectedData.hours += buttonValue;
@@ -157,10 +122,6 @@ const addHour = (selectedClientData, e) => {
   let elms = document.querySelectorAll('.selected-item');
   [].forEach.call(elms, (el) => el.classList.remove('selected-item'));
   buildThisWeekHoursList();
-};
-// selectedClientData.hour + hour.value;
-const addThirty = (selectedClientData) => {
-  selectedClientData[0].hours += 0.5;
 };
 
 const buildThisWeekHoursList = () => {
@@ -257,27 +218,3 @@ navItems.forEach((nav) => {
 });
 
 // fetchClientListFromLocalStorage();
-///////////Not Currently being used
-const superSelector = (e) => {
-  let thisClickedVariable = e.target;
-  return thisClickedVariable;
-};
-
-///////// not being used currentlly////////
-const selectClientToAddHours = (e) => {
-  console.log(e.target);
-  addSelectedstyle(e.target);
-
-  //select client add highlighted client styles
-  //make add 30 and add hr button available (remove disable)
-  //grab this week client hours  and add selected buttons time
-  //update local storage
-  // able to deselect client and not add hours
-};
-
-///////// not being used currentlly////////
-const addSelectedstyle = (element) => {
-  element.classList.add('selected-item');
-  let select = document.getElementsByClassName('selected-item');
-  console.log(select);
-};
