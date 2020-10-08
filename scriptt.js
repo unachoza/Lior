@@ -155,7 +155,7 @@ const buildThisWeekHoursList = () => {
       thisWeekHoursList.appendChild(thisWeekClientItem);
     });
     const totalItem = document.createElement('div');
-    totalItem.classList.add('item');
+    totalItem.classList.add('total-item');
     totalItem.textContent = `Total Hours : ${totalHoursThisWeek(thisWeekList)}`;
     thisWeekHoursList.appendChild(totalItem);
   }

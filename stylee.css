@@ -326,6 +326,21 @@ section#contact {
   letter-spacing: 1px;
   cursor: pointer;
 }
+.total-item {
+  margin: 4px 8px;
+  width: fit-content;
+  min-width: 125px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: var(--border-radius);
+  line-height: 1.5rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: black;
+  border: solid;
+}
 
 .item:focus {
   outline: none;
