@@ -3,7 +3,7 @@
   "short_name": "Lior",
   "description": "App to keep accouting records for freelance.",
   "display": "standalone",
-  "scope": "index.html",
+  "scope": "https://unachoza.github.io/Lior/",
   "icons": [
     {
       "src": "favicon/favicon.ico",
@@ -27,7 +27,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "theme_color": "#000000",
   "background_color": "#000000"
 }
