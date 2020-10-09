@@ -4,30 +4,33 @@ const CACHE_NAME = 'offline';
 const OFFLINE_URL = 'offline.html';
 
 self.addEventListener('install', (event) => {
+  console.log('install');
   event.waitUntil(
     (async () => {
+      caches.open('static');
       const cache = await caches.open(CACHE_NAME);
+      return cache.addAll(['index.html', 'stylee.css', 'scriptt.js']);
       // Setting {cache: 'reload'} in the new request will ensure that the response
       // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
-      await cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
+      // await cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
     })()
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    (async () => {
-      // Enable navigation preload if it's supported.
-      // See https://developers.google.com/web/updates/2017/02/navigation-preload
-      if ('navigationPreload' in self.registration) {
-        await self.registration.navigationPreload.enable();
-      }
-    })()
-  );
+// self.addEventListener('activate', (event) => {
+//   event.waitUntil(
+//     (async () => {
+//       // Enable navigation preload if it's supported.
+//       // See https://developers.google.com/web/updates/2017/02/navigation-preload
+//       if ('navigationPreload' in self.registration) {
+//         await self.registration.navigationPreload.enable();
+//       }
+//     })()
+//   );
 
-  // Tell the active service worker to take control of the page immediately.
-  self.clients.claim();
-});
+//   // Tell the active service worker to take control of the page immediately.
+//   self.clients.claim();
+// });
 
 self.addEventListener('fetch', (event) => {
   // We only want to call event.respondWith() if this is a navigation request
@@ -66,31 +69,31 @@ self.addEventListener('fetch', (event) => {
   // were no service worker involvement.
 });
 
-// On install, cache some stuff
-addEventListener('install', function (event) {
-  event.waitUntil(
-    caches.open('core').then(function (cache) {
-      cache.add(new Request('offline.html'));
-      return;
-    })
-  );
-});
-// listen for requests
-addEventListener('fetch', function (event) {
-  // Get the request
-  var request = event.request;
+// // On install, cache some stuff
+// addEventListener('install', function (event) {
+//   event.waitUntil(
+//     caches.open('core').then(function (cache) {
+//       cache.add(new Request('offline.html'));
+//       return;
+//     })
+//   );
+// });
+// // listen for requests
+// addEventListener('fetch', function (event) {
+//   // Get the request
+//   var request = event.request;
 
-  // HTML files
-  // Network-first
-  if (request.headers.get('Accept').includes('text/html')) {
-    event.respondWith(
-      fetch(request)
-        .then(function (response) {
-          return response;
-        })
-        .catch(function (error) {
-          return caches.match('offline.html');
-        })
-    );
-  }
-});
+//   // HTML files
+//   // Network-first
+//   if (request.headers.get('Accept').includes('text/html')) {
+//     event.respondWith(
+//       fetch(request)
+//         .then(function (response) {
+//           return response;
+//         })
+//         .catch(function (error) {
+//           return caches.match('offline.html');
+//         })
+//     );
+//   }
+// });
