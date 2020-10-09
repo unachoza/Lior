@@ -451,3 +451,11 @@ input {
     opacity: 1;
   }
 }
+.pwa-install::part(openButton) {
+  background: white;
+  height: 200px;
+}
+.pwa {
+  color: white;
+  height: 200px;
+}

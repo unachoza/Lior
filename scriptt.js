@@ -146,6 +146,10 @@ const buildThisWeekHoursList = () => {
       thisWeekClientItem.setAttribute('value', hours);
       thisWeekClientItem.setAttribute('name', thisWeekClientName);
       thisWeekClientItem.classList.add('item');
+      // thisWeekClientItem.insertAdjacentHTML(
+      //   'afterend',
+      //   `<div id="clientHours-${i}">${thisWeekClientName}<span>Hours : ${hours}</span></div>`
+      // );
       thisWeekClientItem.textContent = `${thisWeekClientName}, Hours : ${hours}`;
       thisWeekClientItem.addEventListener('click', (e) => addHoursToClientThisWeek(e));
       thisWeekHoursList.appendChild(thisWeekClientItem);
