@@ -219,4 +219,3 @@ navItems.forEach((nav) => {
 
 // fetchClientListFromLocalStorage();
 const makeHashTableForLocalStorage = () => {};
-registerServiceWorker();

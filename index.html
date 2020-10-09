@@ -107,6 +107,11 @@
         <div id="modal-content-list"></div>
       </div>
     </div>
-    <script src="scriptt.js"></script>
+    <script src="scriptt.js">
+         // Initialize the service worker
+      if (navigator && navigator.serviceWorker) {
+      	navigator.serviceWorker.register('sw.js');
+      }
+    </script>
   </body>
 </html>
