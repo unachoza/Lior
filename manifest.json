@@ -1,6 +1,9 @@
 {
   "name": "Lior Limited Liability",
   "short_name": "Lior",
+  "start_url": ".",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "description": "App to keep accouting records for freelance.",
   "display": "standalone",
   "scope": "https://unachoza.github.io/Lior/",
@@ -26,8 +29,5 @@
       "sizes": "180x180",
       "type": "image/png"
     }
-  ],
-  "start_url": "./index.html",
-  "theme_color": "#000000",
-  "background_color": "#000000"
+  ]
 }
