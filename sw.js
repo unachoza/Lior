@@ -82,6 +82,7 @@ addEventListener('install', function (event) {
 addEventListener('fetch', function (event) {
   // Get the request
   var request = event.request;
+  console.log('this is the request', request);
 
   // HTML files
   // Network-first
@@ -89,6 +90,7 @@ addEventListener('fetch', function (event) {
     event.respondWith(
       fetch(request)
         .then(function (response) {
+          console.log('this is the response', response);
           return response;
         })
         .catch(function (error) {
