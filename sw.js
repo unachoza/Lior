@@ -17,22 +17,23 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// self.addEventListener('activate', (event) => {
-//   event.waitUntil(
-//     (async () => {
-//       // Enable navigation preload if it's supported.
-//       // See https://developers.google.com/web/updates/2017/02/navigation-preload
-//       if ('navigationPreload' in self.registration) {
-//         await self.registration.navigationPreload.enable();
-//       }
-//     })()
-//   );
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    (async () => {
+      // Enable navigation preload if it's supported.
+      // See https://developers.google.com/web/updates/2017/02/navigation-preload
+      if ('navigationPreload' in self.registration) {
+        await self.registration.navigationPreload.enable();
+      }
+    })()
+  );
 
-//   // Tell the active service worker to take control of the page immediately.
-//   self.clients.claim();
-// });
+  // Tell the active service worker to take control of the page immediately.
+  self.clients.claim();
+});
 
 self.addEventListener('fetch', (event) => {
+  console.log(event.request);
   // We only want to call event.respondWith() if this is a navigation request
   // for an HTML page.
   if (event.request.mode === 'navigate') {
